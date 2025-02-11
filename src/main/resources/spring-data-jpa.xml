@@ -11,9 +11,9 @@
     <!-- 데이터 소스 설정 (HikariCP 사용) -->
     <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/eGov_project"/>
-        <property name="username" value="root"/>
-        <property name="password" value="qhdks001!"/>
+        <property name="jdbcUrl" value="jdbc:mysql://database.c78semku2x3l.us-east-1.rds.amazonaws.com:3306/eGov_project"/>
+        <property name="username" value="Admine"/>
+        <property name="password" value="kit2025!"/>
         <property name="maximumPoolSize" value="10"/>
     </bean>
 

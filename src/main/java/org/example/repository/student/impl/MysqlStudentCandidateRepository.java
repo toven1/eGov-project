@@ -10,8 +10,6 @@ import java.util.List;
 @Repository
 public interface MysqlStudentCandidateRepository extends JpaRepository<StudentCandidate, Long>, StudentCandidateRepository {
 
-    @Override
-    List<StudentCandidate> findByName(String name);
 
 
 }
