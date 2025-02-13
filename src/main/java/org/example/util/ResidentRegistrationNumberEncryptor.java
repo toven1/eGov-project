@@ -13,7 +13,8 @@ public class ResidentRegistrationNumberEncryptor {
     // AES 256 Key (32 bytes) - 환경 변수 관리 권장
     private static final String SECRET_KEY = to32ByteKey("eGov_project"); // 변경 금지
     private static final String ALGORITHM = "AES";
-    private static final int IV_SIZE = 16; // 128비트 (AES 블록 크기)
+    private static final
+    int IV_SIZE = 16; // 128비트 (AES 블록 크기)
 
     /**
      * 주민등록번호 암호화 (CBC 모드)

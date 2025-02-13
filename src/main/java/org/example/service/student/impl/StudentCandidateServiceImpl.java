@@ -1,10 +1,18 @@
 package org.example.service.student.impl;
 
+import org.example.config.AppConfig;
 import org.example.entity.student.StudentCandidate;
 import org.example.repository.student.StudentCandidateRepository;
 import org.example.service.student.StudentCandidateService;
+import org.jetbrains.annotations.NotNull;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -12,11 +20,13 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import static org.example.util.ResidentRegistrationNumberEncryptor.*;
+import static org.junit.Assert.assertTrue;
 
 @Service
 @Transactional
 public class StudentCandidateServiceImpl implements StudentCandidateService {
 
+    @Autowired
     private final StudentCandidateRepository studentCandidateRepository;
 
     @Autowired
@@ -45,7 +55,7 @@ public class StudentCandidateServiceImpl implements StudentCandidateService {
     // 중복 체크
     // 수험번호 + 주민번호
     @Override
-    public void isDuplicateCandidate(StudentCandidate studentCandidate) {
+    public void isDuplicateCandidate(@NotNull StudentCandidate studentCandidate) {
 
         // 주민번호
         Optional<StudentCandidate> rrn = studentCandidateRepository.findByRrn(studentCandidate.getRrn());
@@ -58,24 +68,37 @@ public class StudentCandidateServiceImpl implements StudentCandidateService {
                     throw new IllegalStateException("이미 존재하는 후보자입니다.");
                 }
         ));
-//        studentCandidateRepository.findByApplicationNumber(studentCandidate.getApplicationNumber())
-//                .ifPresent(m -> {
-//                    throw new IllegalStateException("이미 존재하는 후보자입니다.");
-//                        });
     }
 
     // 필요 데이터 체크
     @Override
-    public void checkRequiredData(StudentCandidate studentCandidate) {
+    public void checkRequiredData(@NotNull StudentCandidate studentCandidate) {
         if (studentCandidate.getName() == null) throw new IllegalStateException("이름");
         if (studentCandidate.getRrn() == null) throw new IllegalStateException("주민번호");
         if (studentCandidate.getPhone() == null ) throw new IllegalStateException("전화번호");
         if (studentCandidate.getAddress() == null) throw new IllegalStateException("주소");
-        if (studentCandidate.getApplicationDate() == null) throw new IllegalStateException("날짜");
+        if (studentCandidate.getApplicationDate() == null) throw new IllegalStateException("지원날짜");
         if (studentCandidate.getApplicationNumber() == null) throw new IllegalStateException("수험번호");
-        if (studentCandidate.getApplicationType() == null ) throw new IllegalStateException("유형");
+        if (studentCandidate.getApplicationType() == null ) throw new IllegalStateException("지원유형");
         if (studentCandidate.getFaculty() == null) throw new IllegalStateException("학부");
         if (studentCandidate.getDepartment() == null) throw new IllegalStateException("학과");
+    }
+
+    @Override
+    public void acceptCandidates(List<Integer> applicationNumbers) {
+        List<StudentCandidate> candidates = studentCandidateRepository.findByApplicationNumberIn(applicationNumbers);
+        candidates.forEach(candidate -> candidate.setAdmitted(true));
+        studentCandidateRepository.saveAll(candidates);
+    }
+
+    @Override
+    public void acceptCandidate(Integer applicationNumber) {
+        Optional<StudentCandidate> sc = studentCandidateRepository.findByApplicationNumber(applicationNumber);
+        // 없으면 실행 X
+        sc.ifPresent(studentCandidate->{
+            studentCandidate.setAdmitted(true);
+            studentCandidateRepository.save(studentCandidate);
+                });
     }
 
     @Override
@@ -84,8 +107,8 @@ public class StudentCandidateServiceImpl implements StudentCandidateService {
     }
 
     @Override
-    public Optional<StudentCandidate> findOneStudentCandidate(int applicationNumber) {
-        return studentCandidateRepository.findByStudentNumber(applicationNumber);
+    public Optional<StudentCandidate> findOneStudentCandidate(Integer applicationNumber) {
+        return studentCandidateRepository.findByApplicationNumber(applicationNumber);
     }
 
     @Override

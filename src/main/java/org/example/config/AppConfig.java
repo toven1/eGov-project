@@ -1,9 +1,5 @@
 package org.example.config;
 
-import org.example.repository.student.StudentCandidateRepository;
-import org.example.repository.student.impl.MysqlStudentCandidateRepository;
-import org.example.service.student.StudentActiveService;
-import org.example.service.student.StudentCandidateService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
