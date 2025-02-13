@@ -30,6 +30,7 @@
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.physical_naming_strategy">org.example.util.ImprovedNamingStrategy</prop>
             </props>
         </property>
     </bean>

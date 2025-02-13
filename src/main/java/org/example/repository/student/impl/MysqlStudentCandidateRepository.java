@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface MysqlStudentCandidateRepository extends JpaRepository<StudentCandidate, Long>, StudentCandidateRepository {
 
-  /// 12122
+
 
 }

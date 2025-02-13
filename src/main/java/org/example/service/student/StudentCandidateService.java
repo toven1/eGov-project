@@ -10,9 +10,14 @@ import java.util.Optional;
 @Service
 public interface StudentCandidateService {
 
+
     Long saveCandidate(StudentCandidate studentCandidate);
 
-    void isDuplicateApplicationNumber(StudentCandidate studentCandidate);
+    // 수험 번호로 중복 체크
+    void isDuplicateCandidate(StudentCandidate studentCandidate);
+
+    // 필요한 데이터 체크
+    void checkRequiredData(StudentCandidate studentCandidate);
 
     List<StudentCandidate> findAllStudentCandidates();
 
@@ -23,5 +28,7 @@ public interface StudentCandidateService {
     List<StudentCandidate> findStudentCandidatesByApplicationType(String applicationType);
     List<StudentCandidate> findAdmittedStudentCandidates();
     List<StudentCandidate> findNotAdmittedStudentCandidates();
+
+
 
 }
