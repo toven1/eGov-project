@@ -25,6 +25,8 @@ public interface StudentCandidateRepository {
 
     List<StudentCandidate> findByIsAdmitted(boolean isAdmitted);
 
+    Optional<StudentCandidate> findByRrn(String rrn);
+
     Optional<StudentCandidate> findByStudentNumber(int studentNumber);
 
     List<StudentCandidate> findAll();

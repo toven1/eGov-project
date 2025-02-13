@@ -2,13 +2,13 @@ package org.example.entity.student;
 
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.type.IntegerType;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "student_candidate")
 public class StudentCandidate {
 
     @Id
@@ -18,21 +18,13 @@ public class StudentCandidate {
     private String rrn;
     private String phone;
     private String address;
-    private int applicationNumber;
+    private Integer applicationNumber;
     private LocalDate applicationDate;
     private String applicationType;
     private String faculty;
     private String department;
     private boolean isAdmitted;
-    private int studentNumber;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    private Integer studentNumber;
 
     public Long getId() {
         return id;
@@ -40,6 +32,14 @@ public class StudentCandidate {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getRrn() {
@@ -66,11 +66,11 @@ public class StudentCandidate {
         this.address = address;
     }
 
-    public int getApplicationNumber() {
+    public Integer getApplicationNumber() {
         return applicationNumber;
     }
 
-    public void setApplicationNumber(int applicationNumber) {
+    public void setApplicationNumber(Integer applicationNumber) {
         this.applicationNumber = applicationNumber;
     }
 
@@ -110,15 +110,15 @@ public class StudentCandidate {
         return isAdmitted;
     }
 
-    public void idAdmitted(boolean isAdmitted) {
-        this.isAdmitted = isAdmitted;
+    public void setAdmitted(boolean admitted) {
+        isAdmitted = admitted;
     }
 
-    public int getStudent_number() {
+    public Integer getStudentNumber() {
         return studentNumber;
     }
 
-    public void setStudent_number(int student_number) {
-        this.studentNumber = student_number;
+    public void setStudentNumber(Integer studentNumber) {
+        this.studentNumber = studentNumber;
     }
 }

@@ -13,5 +13,6 @@ CREATE TABLE student_candidate (
     student_number INT NULL, -- 합격 전에는 NULL, 합격 후 값이 들어감
 
     UNIQUE (application_number), -- 수험번호는 유일해야 함
+    UNIQUE (rrn), -- 주민번호도 유일해야 함
     UNIQUE (student_number) -- 학생번호도 유일해야 함 (합격 후 생성됨)
 );

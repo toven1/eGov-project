@@ -1,11 +1,11 @@
-package org.example.repository.student.impl;
+package org.example.service.student.impl;
 
 import org.example.config.AppConfig;
 import org.example.entity.student.StudentCandidate;
 import org.example.repository.student.StudentCandidateRepository;
+import org.example.service.student.StudentCandidateService;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.internal.Classes;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -13,27 +13,31 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @ContextConfiguration(classes = AppConfig.class)
-public class MysqlStudentCandidateRepositoryTest {
+public class StudentCandidateServiceImplTest {
 
     @Autowired
-    private StudentCandidateRepository studentCandidateRepository;
+    StudentCandidateRepository studentCandidateRepository;
+    @Autowired
+    StudentCandidateService studentCandidateService;
+
+    @Before
+    public void setUp() {
+       assertThat(studentCandidateRepository).isNotNull();// Repository가 정상 주입되었는지 확인
+       assertThat(studentCandidateService).isNotNull(); // service 가 정상 주입되었는지 확인
+    }
 
     @Test
-    public void 데이터넣기테스트(){
-
+    public void 정상_후보자_데이터_입력_테스트(){
         // given
         StudentCandidate sc = new StudentCandidate();
-        sc.setName("testname");
 
-        //    sc.setId(1L);
+        sc.setName("test Name");
         sc.setRrn("111111-1111111");
         sc.setPhone("010-1234-5678");
         sc.setAddress("서울특별시 무슨구 무슨동");
@@ -44,10 +48,12 @@ public class MysqlStudentCandidateRepositoryTest {
         sc.setDepartment("정보보안");
 
         // when
-        studentCandidateRepository.save(sc);
+        Long savedId = studentCandidateService.saveCandidate(sc);
 
         // then
-        StudentCandidate result = studentCandidateRepository.findById(sc.getId()).get();
-        assertThat(sc).isEqualTo(result);
+        System.out.println("sc.getRrn() = " + sc.getRrn());
+        assertThat(savedId).isEqualTo(sc.getId());
+
     }
+
 }
