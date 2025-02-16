@@ -4,23 +4,25 @@ package org.example.repository.student;
 
 import org.example.entity.student.Status;
 import org.example.entity.student.StudentActive;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface StudentActiveRepository {
+public interface StudentActiveRepository extends JpaRepository<StudentActive, Long> {
     StudentActive save(StudentActive studentActive);
 
     Optional<StudentActive> findById(StudentActive studentActive);
 
     Optional<StudentActive> findByName(StudentActive studentActive);
 
-    Optional<StudentActive> findByStudent_number(StudentActive studentActive);
+    Optional<StudentActive> findByStudentNumber(StudentActive studentActive);
 
     Optional<StudentActive> findByStatus(Status status);
 
-    Optional<StudentActive> findByAcademic_year(int academic_year);
+    Optional<StudentActive> findByAcademicYear(int academic_year);
 
     Optional<StudentActive> findBySemester(int semester);
 
@@ -28,8 +30,8 @@ public interface StudentActiveRepository {
 
     Optional<StudentActive> findByDepartment(String department);
 
-    Optional<StudentActive> findByClass_group(String class_group);
+    Optional<StudentActive> findByClassGroup(String class_group);
 
-    StudentActive findAll();
+    List<StudentActive> findAll();
 
 }

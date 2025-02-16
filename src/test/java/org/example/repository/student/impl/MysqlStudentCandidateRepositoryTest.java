@@ -41,7 +41,7 @@ public class MysqlStudentCandidateRepositoryTest {
         sc.setApplicationNumber(12345678);
         sc.setApplicationType("수시");
         sc.setFaculty("IT 융합");
-        sc.setDepartment("정보보안");
+        sc.setDepartment("정보보안학과");
 
         // when
         studentCandidateRepository.save(sc);

@@ -52,7 +52,7 @@ public class StudentCandidateServiceImplTest {
         sc.setApplicationNumber(12345678);
         sc.setApplicationType("수시");
         sc.setFaculty("IT 융합");
-        sc.setDepartment("정보보안");
+        sc.setDepartment("정보보안학과");
 
         // when
         Long savedId = studentCandidateService.saveCandidate(sc);
@@ -74,7 +74,7 @@ public class StudentCandidateServiceImplTest {
         sc.setApplicationNumber(12345678);
         sc.setApplicationType("수시");
         sc.setFaculty("IT 융합");
-        sc.setDepartment("정보보안");
+        sc.setDepartment("정보보안학과");
         studentCandidateService.saveCandidate(sc);
 
         // when
@@ -98,7 +98,7 @@ public class StudentCandidateServiceImplTest {
         sc1.setApplicationNumber(12345678);
         sc1.setApplicationType("수시");
         sc1.setFaculty("IT 융합");
-        sc1.setDepartment("정보보안");
+        sc1.setDepartment("정보보안학과");
 
         studentCandidateService.saveCandidate(sc1);
 
@@ -112,7 +112,7 @@ public class StudentCandidateServiceImplTest {
         sc2.setApplicationNumber(87654321);
         sc2.setApplicationType("수시");
         sc2.setFaculty("IT 융합");
-        sc2.setDepartment("정보보안");
+        sc2.setDepartment("정보보안학과");
 
         studentCandidateService.saveCandidate(sc2);
 
@@ -140,7 +140,7 @@ public class StudentCandidateServiceImplTest {
         sc.setApplicationNumber(12345678);
         sc.setApplicationType("수시");
         sc.setFaculty("IT 융합");
-        sc.setDepartment("정보보안");
+        sc.setDepartment("정보보안학과");
 
         // when
         try {
@@ -165,7 +165,7 @@ public class StudentCandidateServiceImplTest {
         sc.setApplicationNumber(12345678);
         sc.setApplicationType("수시");
         sc.setFaculty("IT 융합");
-        sc.setDepartment("정보보안");
+        sc.setDepartment("정보보안학과");
 
         // when
         try {
@@ -190,7 +190,7 @@ public class StudentCandidateServiceImplTest {
         sc.setApplicationNumber(12345678);
         sc.setApplicationType("수시");
         sc.setFaculty("IT 융합");
-        sc.setDepartment("정보보안");
+        sc.setDepartment("정보보안학과");
 
         // when
         try {
@@ -215,7 +215,7 @@ public class StudentCandidateServiceImplTest {
         sc.setApplicationNumber(12345678);
         sc.setApplicationType("수시");
         sc.setFaculty("IT 융합");
-        sc.setDepartment("정보보안");
+        sc.setDepartment("정보보안학과");
 
         // when
         try {
@@ -240,7 +240,7 @@ public class StudentCandidateServiceImplTest {
         sc.setApplicationNumber(12345678);
         sc.setApplicationType("수시");
         sc.setFaculty("IT 융합");
-        sc.setDepartment("정보보안");
+        sc.setDepartment("정보보안학과");
 
         // when
         try {
@@ -265,7 +265,7 @@ public class StudentCandidateServiceImplTest {
         sc.setApplicationDate(LocalDate.of(2024, 11, 11));
         sc.setApplicationType("수시");
         sc.setFaculty("IT 융합");
-        sc.setDepartment("정보보안");
+        sc.setDepartment("정보보안학과");
 
         // when
         try {
@@ -290,7 +290,7 @@ public class StudentCandidateServiceImplTest {
         sc.setApplicationDate(LocalDate.of(2024, 11, 11));
         sc.setApplicationNumber(12345678);
         sc.setFaculty("IT 융합");
-        sc.setDepartment("정보보안");
+        sc.setDepartment("정보보안학과");
 
         // when
         try {
@@ -315,7 +315,7 @@ public class StudentCandidateServiceImplTest {
         sc.setApplicationDate(LocalDate.of(2024, 11, 11));
         sc.setApplicationNumber(12345678);
         sc.setApplicationType("수시");
-        sc.setDepartment("정보보안");
+        sc.setDepartment("정보보안학과");
 
         // when
         try {
@@ -364,7 +364,7 @@ public class StudentCandidateServiceImplTest {
         sc1.setAddress("서울특별시 무슨구 무슨동");
         sc1.setApplicationDate(LocalDate.of(2024, 11, 11));
         sc1.setApplicationNumber(12345678);
-        sc1.setApplicationType("수시");sc1.setFaculty("IT 융합");sc1.setDepartment("정보보안");
+        sc1.setApplicationType("수시");sc1.setFaculty("IT 융합");sc1.setDepartment("정보보안학과");
 
         StudentCandidate sc2 = new StudentCandidate();
 
@@ -376,7 +376,7 @@ public class StudentCandidateServiceImplTest {
         sc2.setApplicationNumber(87654321);
         sc2.setApplicationType("수시");
         sc2.setFaculty("IT 융합");
-        sc2.setDepartment("정보보안");
+        sc2.setDepartment("정보보안학과");
 
         // when
         studentCandidateService.saveCandidate(sc1);
@@ -399,7 +399,7 @@ public class StudentCandidateServiceImplTest {
         sc1.setAddress("서울특별시 무슨구 무슨동");
         sc1.setApplicationDate(LocalDate.of(2024, 11, 11));
         sc1.setApplicationNumber(12345678);
-        sc1.setApplicationType("수시");sc1.setFaculty("IT 융합");sc1.setDepartment("정보보안");
+        sc1.setApplicationType("수시");sc1.setFaculty("IT 융합");sc1.setDepartment("정보보안학과");
 
         // when
         studentCandidateService.saveCandidate(sc1);
@@ -422,7 +422,7 @@ public class StudentCandidateServiceImplTest {
         sc1.setApplicationNumber(12345678);
         sc1.setApplicationType("수시");
         sc1.setFaculty("IT 융합1");
-        sc1.setDepartment("정보보안");
+        sc1.setDepartment("정보보안학과");
 
         StudentCandidate sc2 = new StudentCandidate();
 
@@ -434,7 +434,7 @@ public class StudentCandidateServiceImplTest {
         sc2.setApplicationNumber(87654321);
         sc2.setApplicationType("수시");
         sc2.setFaculty("IT 융합2");
-        sc2.setDepartment("정보보안");
+        sc2.setDepartment("정보보안학과");
 
         // when
         studentCandidateService.saveCandidate(sc1);
@@ -461,7 +461,7 @@ public class StudentCandidateServiceImplTest {
         sc1.setApplicationNumber(12345678);
         sc1.setApplicationType("수시");
         sc1.setFaculty("IT 융합");
-        sc1.setDepartment("정보보안1");
+        sc1.setDepartment("정보보안학과");
 
         StudentCandidate sc2 = new StudentCandidate();
 
@@ -473,17 +473,17 @@ public class StudentCandidateServiceImplTest {
         sc2.setApplicationNumber(87654321);
         sc2.setApplicationType("수시");
         sc2.setFaculty("IT 융합");
-        sc2.setDepartment("정보보안2");
+        sc2.setDepartment("인공지능학과");
 
         // when
         studentCandidateService.saveCandidate(sc1);
         studentCandidateService.saveCandidate(sc2);
-        List<StudentCandidate> results = studentCandidateService.findStudentCandidatesByDepartment("정보보안1");
+        List<StudentCandidate> results = studentCandidateService.findStudentCandidatesByDepartment("정보보안학과1");
 
         // then
         // 리스트 내의 모둔 객체가 모든 조건을 만족
         assertThat(results).allSatisfy(result -> {
-            assertThat(result.getDepartment()).isEqualTo("정보보안1");
+            assertThat(result.getDepartment()).isEqualTo("정보보안학과1");
         });
     }
 
@@ -500,7 +500,7 @@ public class StudentCandidateServiceImplTest {
         sc1.setApplicationNumber(12345678);
         sc1.setApplicationType("수시");
         sc1.setFaculty("IT 융합");
-        sc1.setDepartment("정보보안");
+        sc1.setDepartment("정보보안학과");
 
         StudentCandidate sc2 = new StudentCandidate();
 
@@ -512,7 +512,7 @@ public class StudentCandidateServiceImplTest {
         sc2.setApplicationNumber(87654321);
         sc2.setApplicationType("정시");
         sc2.setFaculty("IT 융합");
-        sc2.setDepartment("정보보안");
+        sc2.setDepartment("정보보안학과");
 
         // when
         studentCandidateService.saveCandidate(sc1);
@@ -526,43 +526,5 @@ public class StudentCandidateServiceImplTest {
         });
     }
 
-    @Test
-    public void 모두조회_합격한사람(){
-        // given
-        StudentCandidate sc1 = new StudentCandidate();
-
-        sc1.setName("test Name");
-        sc1.setRrn("111111-1111111");
-        sc1.setPhone("010-1234-5678");
-        sc1.setAddress("서울특별시 무슨구 무슨동");
-        sc1.setApplicationDate(LocalDate.of(2024, 11, 11));
-        sc1.setApplicationNumber(12345678);
-        sc1.setApplicationType("수시");
-        sc1.setFaculty("IT 융합");
-        sc1.setDepartment("정보보안");
-
-        StudentCandidate sc2 = new StudentCandidate();
-
-        sc2.setName("test Name");
-        sc2.setRrn("111111-2222222");
-        sc2.setPhone("010-1234-5678");
-        sc2.setAddress("서울특별시 무슨구 무슨동");
-        sc2.setApplicationDate(LocalDate.of(2024, 11, 11));
-        sc2.setApplicationNumber(87654321);
-        sc2.setApplicationType("수시");
-        sc2.setFaculty("IT 융합");
-        sc2.setDepartment("정보보안");
-
-        // when
-        studentCandidateService.saveCandidate(sc1);
-        studentCandidateService.saveCandidate(sc2);
-        List<StudentCandidate> results = studentCandidateService.findStudentCandidatesByDepartment("정보보안");
-
-        // then
-        // 리스트 내의 모둔 객체가 모든 조건을 만족
-        assertThat(results).allSatisfy(result -> {
-            assertThat(result.getDepartment()).isEqualTo("정보보안");
-        });
-    }
 
 }

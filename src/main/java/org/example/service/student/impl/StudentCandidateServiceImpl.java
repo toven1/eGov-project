@@ -1,18 +1,17 @@
 package org.example.service.student.impl;
 
-import org.example.config.AppConfig;
+import org.example.entity.Department;
 import org.example.entity.student.StudentCandidate;
+import org.example.entity.student.StudentNumberSequence;
+import org.example.entity.student.TuitionPayment;
+import org.example.repository.DepartmentRepository;
 import org.example.repository.student.StudentCandidateRepository;
+import org.example.repository.student.StudentNumberSequenceRepository;
+import org.example.repository.student.TuitionPaymentRepository;
 import org.example.service.student.StudentCandidateService;
 import org.jetbrains.annotations.NotNull;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -28,10 +27,19 @@ public class StudentCandidateServiceImpl implements StudentCandidateService {
 
     @Autowired
     private final StudentCandidateRepository studentCandidateRepository;
+    @Autowired
+    private final StudentNumberSequenceRepository studentNumberSequenceRepository;
+    @Autowired
+    private final DepartmentRepository departmentRepository;
+    @Autowired
+    private final TuitionPaymentRepository tuitionPaymentRepository;
 
     @Autowired
-    public StudentCandidateServiceImpl(StudentCandidateRepository studentCandidateRepository) {
+    public StudentCandidateServiceImpl(StudentCandidateRepository studentCandidateRepository, StudentNumberSequenceRepository studentNumberSequenceRepository, DepartmentRepository departmentRepository, TuitionPaymentRepository tuitionPaymentRepository) {
         this.studentCandidateRepository = studentCandidateRepository;
+        this.studentNumberSequenceRepository = studentNumberSequenceRepository;
+        this.departmentRepository = departmentRepository;
+        this.tuitionPaymentRepository = tuitionPaymentRepository;
     }
 
     @Override
@@ -45,6 +53,13 @@ public class StudentCandidateServiceImpl implements StudentCandidateService {
 
         // 중복 체크
         isDuplicateCandidate(studentCandidate);
+
+        // 입력된 학과 이름을 기반으로 학과 코드 찾기
+        Department department = departmentRepository.findByDepartmentName(studentCandidate.getDepartment())
+                .orElseThrow(() -> new IllegalArgumentException("학과를 찾을 수 없습니다: " + studentCandidate.getDepartment()));
+
+        // 학과 코드 저장
+        studentCandidate.setDepartmentCode(department.getDepartmentCode());
 
         // 저장
         studentCandidateRepository.save(studentCandidate);
@@ -84,6 +99,7 @@ public class StudentCandidateServiceImpl implements StudentCandidateService {
         if (studentCandidate.getDepartment() == null) throw new IllegalStateException("학과");
     }
 
+    // 후보자 합격처리 다수
     @Override
     public void acceptCandidates(List<Integer> applicationNumbers) {
         List<StudentCandidate> candidates = studentCandidateRepository.findByApplicationNumberIn(applicationNumbers);
@@ -91,14 +107,56 @@ public class StudentCandidateServiceImpl implements StudentCandidateService {
         studentCandidateRepository.saveAll(candidates);
     }
 
+    // 후보자 합격처리 한명만
     @Override
     public void acceptCandidate(Integer applicationNumber) {
         Optional<StudentCandidate> sc = studentCandidateRepository.findByApplicationNumber(applicationNumber);
         // 없으면 실행 X
         sc.ifPresent(studentCandidate->{
             studentCandidate.setAdmitted(true);
+
+            // 학번 생성
+            Integer studentNumber = generateStudentNumber(studentCandidate);
+
+            // 등록금 테이블 생성
+            TuitionPayment tuitionPayment = new TuitionPayment();
+            tuitionPayment.setStudentNumber(studentNumber);
+            tuitionPaymentRepository.save(tuitionPayment);
+
+            // 저장
+            studentCandidate.setStudentNumber(studentNumber);
             studentCandidateRepository.save(studentCandidate);
                 });
+    }
+
+    // 학번 생성
+    @Transactional
+    @Override
+    public Integer generateStudentNumber(StudentCandidate studentCandidate) {
+        // 지원년도와 학과코드 추출
+        int year = studentCandidate.getApplicationDate().getYear();
+        String departmentCode = studentCandidate.getDepartmentCode();
+
+        // 기존 시퀀스 조회
+        StudentNumberSequence studentNumberSequence = studentNumberSequenceRepository.findByYearAndDepartmentCode(year, departmentCode);
+        if (studentNumberSequence == null) {
+            // 없으면 0으로 지정
+            studentNumberSequence = new StudentNumberSequence();
+            studentNumberSequence.setYear(year);
+            studentNumberSequence.setDepartmentCode(departmentCode);
+
+            studentNumberSequence.setSequence(0);
+        }
+        // 1을 더한 후 시퀀스 저장
+        studentNumberSequence.setSequence(studentNumberSequence.getSequence()+1);
+        studentNumberSequenceRepository.save(studentNumberSequence);
+
+        // 만든 시퀀스를 기반으로 학번 생성
+        Integer studentNumber = Integer.parseInt(String.format("%02d%s%04d", year % 100, departmentCode, studentNumberSequence.getSequence()));
+        studentCandidate.setStudentNumber(studentNumber);
+
+        // 학번 리턴
+        return studentNumber;
     }
 
     @Override
