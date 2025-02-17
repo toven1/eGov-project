@@ -3,9 +3,7 @@ package org.example.repository.student.impl;
 import org.example.config.AppConfig;
 import org.example.entity.student.StudentCandidate;
 import org.example.repository.student.StudentCandidateRepository;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.internal.Classes;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -13,8 +11,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -37,7 +33,6 @@ public class MysqlStudentCandidateRepositoryTest {
         sc.setRrn("111111-1111111");
         sc.setPhone("010-1234-5678");
         sc.setAddress("서울특별시 무슨구 무슨동");
-        sc.setApplicationDate(LocalDate.of(2024, 11, 11));
         sc.setApplicationNumber(12345678);
         sc.setApplicationType("수시");
         sc.setFaculty("IT 융합");

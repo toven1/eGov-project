@@ -1,10 +1,12 @@
 package org.example.service.student.impl;
 
 import org.example.entity.Department;
+import org.example.entity.student.StudentActive;
 import org.example.entity.student.StudentCandidate;
 import org.example.entity.student.StudentNumberSequence;
 import org.example.entity.student.TuitionPayment;
 import org.example.repository.DepartmentRepository;
+import org.example.repository.student.StudentActiveRepository;
 import org.example.repository.student.StudentCandidateRepository;
 import org.example.repository.student.StudentNumberSequenceRepository;
 import org.example.repository.student.TuitionPaymentRepository;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -33,13 +36,16 @@ public class StudentCandidateServiceImpl implements StudentCandidateService {
     private final DepartmentRepository departmentRepository;
     @Autowired
     private final TuitionPaymentRepository tuitionPaymentRepository;
+    @Autowired
+    private final StudentActiveRepository studentActiveRepository;
 
     @Autowired
-    public StudentCandidateServiceImpl(StudentCandidateRepository studentCandidateRepository, StudentNumberSequenceRepository studentNumberSequenceRepository, DepartmentRepository departmentRepository, TuitionPaymentRepository tuitionPaymentRepository) {
+    public StudentCandidateServiceImpl(StudentCandidateRepository studentCandidateRepository, StudentNumberSequenceRepository studentNumberSequenceRepository, DepartmentRepository departmentRepository, TuitionPaymentRepository tuitionPaymentRepository, StudentActiveRepository studentActiveRepository) {
         this.studentCandidateRepository = studentCandidateRepository;
         this.studentNumberSequenceRepository = studentNumberSequenceRepository;
         this.departmentRepository = departmentRepository;
         this.tuitionPaymentRepository = tuitionPaymentRepository;
+        this.studentActiveRepository = studentActiveRepository;
     }
 
     @Override
@@ -92,7 +98,7 @@ public class StudentCandidateServiceImpl implements StudentCandidateService {
         if (studentCandidate.getRrn() == null) throw new IllegalStateException("주민번호");
         if (studentCandidate.getPhone() == null ) throw new IllegalStateException("전화번호");
         if (studentCandidate.getAddress() == null) throw new IllegalStateException("주소");
-        if (studentCandidate.getApplicationDate() == null) throw new IllegalStateException("지원날짜");
+    //    if (studentCandidate.getApplicationDateTime() == null) throw new IllegalStateException("지원날짜");
         if (studentCandidate.getApplicationNumber() == null) throw new IllegalStateException("수험번호");
         if (studentCandidate.getApplicationType() == null ) throw new IllegalStateException("지원유형");
         if (studentCandidate.getFaculty() == null) throw new IllegalStateException("학부");
@@ -147,7 +153,7 @@ public class StudentCandidateServiceImpl implements StudentCandidateService {
     @Override
     public Integer generateStudentNumber(StudentCandidate studentCandidate) {
         // 지원년도와 학과코드 추출
-        int year = studentCandidate.getApplicationDate().getYear();
+        int year = studentCandidate.getApplicationDateTime().getYear();
         String departmentCode = studentCandidate.getDepartmentCode();
 
         // 기존 시퀀스 조회
@@ -170,6 +176,24 @@ public class StudentCandidateServiceImpl implements StudentCandidateService {
 
         // 학번 리턴
         return studentNumber;
+    }
+
+    // 회원가입
+    @Override
+    public StudentActive transferCandidateToActive(Integer studentNumber) {
+        StudentCandidate studentCandidate = studentCandidateRepository.findByStudentNumber(studentNumber)
+                .orElseThrow(() -> new EntityNotFoundException("Candidate not found"));
+
+        // 등록금 납부 확인
+        boolean isTuitionPaid = tuitionPaymentRepository
+                .findByStudentNumberAndYear1Semester1True(studentCandidate.getStudentNumber())
+                .isPresent();
+        if (!isTuitionPaid) {
+            throw new IllegalStateException("등록금 미납");
+        }
+
+        // `StudentActive` 객체 생성 반환
+        return new StudentActive(studentCandidate);
     }
 
     @Override

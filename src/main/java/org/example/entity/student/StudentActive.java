@@ -1,10 +1,15 @@
 package org.example.entity.student;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "student_active")
+@EntityListeners(AuditingEntityListener.class)
 public class StudentActive {
 
     @Id
@@ -24,7 +29,25 @@ public class StudentActive {
     private String department;
     private String departmentCode;
     private String classGroup;
-    private LocalDate admissionDate;
+
+    @CreatedDate
+    @Column(updatable = false)
+    private LocalDateTime admissionDate;
+
+    public StudentActive() {}
+
+    public StudentActive(StudentCandidate studentCandidate) {
+        this.name = studentCandidate.getName();
+        this.rrn = studentCandidate.getRrn();
+        this.phone = studentCandidate.getPhone();
+        this.address = studentCandidate.getAddress();
+        this.studentNumber = studentCandidate.getStudentNumber();
+        this.admissionType = studentCandidate.getApplicationType();
+        this.faculty = studentCandidate.getFaculty();
+        this.department = studentCandidate.getDepartment();
+        this.departmentCode = studentCandidate.getDepartmentCode();
+        this.classGroup = "신입생";
+    }
 
 //    public Long getId() {return id;}
 //    public void setId(Long id) {this.id = id;}
@@ -177,11 +200,11 @@ public class StudentActive {
         this.classGroup = classGroup;
     }
 
-    public LocalDate getAdmissionDate() {
+    public LocalDateTime getAdmissionDateTime() {
         return admissionDate;
     }
 
-    public void setAdmissionDate(LocalDate admissionDate) {
+    public void setAdmissionDateTime(LocalDateTime admissionDate) {
         this.admissionDate = admissionDate;
     }
 }

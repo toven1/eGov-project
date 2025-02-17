@@ -1,6 +1,7 @@
 package org.example.service.student;
 
 
+import org.example.entity.student.StudentActive;
 import org.example.entity.student.StudentCandidate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,11 +22,12 @@ public interface StudentCandidateService {
     void acceptCandidates(List<Integer> applicationNumbers);
     // 지원자 한명 합격 처리
     void acceptCandidate(Integer applicationNumber);
-    // 지원자 학번 생성 및 등록금 테이블 생성
-    // 학번 반환
-
+    // 학번 생성
     @Transactional
     Integer generateStudentNumber(StudentCandidate studentCandidate);
+    //
+    @Transactional
+    StudentActive transferCandidateToActive(Integer studentNumber);
 
     // 지원자 모두 찾기
     List<StudentCandidate> findAllStudentCandidates();

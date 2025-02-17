@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,7 +47,6 @@ public class StudentCandidateServiceImplTest {
         sc.setRrn("111111-1111111");
         sc.setPhone("010-1234-5678");
         sc.setAddress("서울특별시 무슨구 무슨동");
-        sc.setApplicationDate(LocalDate.of(2024, 11, 11));
         sc.setApplicationNumber(12345678);
         sc.setApplicationType("수시");
         sc.setFaculty("IT 융합");
@@ -70,7 +68,6 @@ public class StudentCandidateServiceImplTest {
         sc.setRrn("111111-1111111");
         sc.setPhone("010-1234-5678");
         sc.setAddress("서울특별시 무슨구 무슨동");
-        sc.setApplicationDate(LocalDate.of(2024, 11, 11));
         sc.setApplicationNumber(12345678);
         sc.setApplicationType("수시");
         sc.setFaculty("IT 융합");
@@ -94,7 +91,6 @@ public class StudentCandidateServiceImplTest {
         sc1.setRrn("111111-1111111");
         sc1.setPhone("010-1234-5678");
         sc1.setAddress("서울특별시 무슨구 무슨동");
-        sc1.setApplicationDate(LocalDate.of(2024, 11, 11));
         sc1.setApplicationNumber(12345678);
         sc1.setApplicationType("수시");
         sc1.setFaculty("IT 융합");
@@ -108,7 +104,6 @@ public class StudentCandidateServiceImplTest {
         sc2.setRrn("111111-2222222");
         sc2.setPhone("010-1234-5678");
         sc2.setAddress("서울특별시 무슨구 무슨동");
-        sc2.setApplicationDate(LocalDate.of(2024, 11, 11));
         sc2.setApplicationNumber(87654321);
         sc2.setApplicationType("수시");
         sc2.setFaculty("IT 융합");
@@ -136,7 +131,6 @@ public class StudentCandidateServiceImplTest {
         sc.setRrn("111111-1111111");
         sc.setPhone("010-1234-5678");
         sc.setAddress("서울특별시 무슨구 무슨동");
-        sc.setApplicationDate(LocalDate.of(2024, 11, 11));
         sc.setApplicationNumber(12345678);
         sc.setApplicationType("수시");
         sc.setFaculty("IT 융합");
@@ -161,7 +155,6 @@ public class StudentCandidateServiceImplTest {
         sc.setName("test name");
         sc.setPhone("010-1234-5678");
         sc.setAddress("서울특별시 무슨구 무슨동");
-        sc.setApplicationDate(LocalDate.of(2024, 11, 11));
         sc.setApplicationNumber(12345678);
         sc.setApplicationType("수시");
         sc.setFaculty("IT 융합");
@@ -186,7 +179,6 @@ public class StudentCandidateServiceImplTest {
         sc.setName("test name");
         sc.setRrn("111111-1111111");
         sc.setAddress("서울특별시 무슨구 무슨동");
-        sc.setApplicationDate(LocalDate.of(2024, 11, 11));
         sc.setApplicationNumber(12345678);
         sc.setApplicationType("수시");
         sc.setFaculty("IT 융합");
@@ -211,7 +203,6 @@ public class StudentCandidateServiceImplTest {
         sc.setName("test name");
         sc.setRrn("111111-1111111");
         sc.setPhone("010-1234-5678");
-        sc.setApplicationDate(LocalDate.of(2024, 11, 11));
         sc.setApplicationNumber(12345678);
         sc.setApplicationType("수시");
         sc.setFaculty("IT 융합");
@@ -243,13 +234,18 @@ public class StudentCandidateServiceImplTest {
         sc.setDepartment("정보보안학과");
 
         // when
-        try {
-            Long savedId = studentCandidateService.saveCandidate(sc);
-            fail("오류 X");
-        } catch (Exception e) {
-            // then
-            assertThat(e.getMessage()).isEqualTo("지원날짜");
-        }
+//        try {
+//            Long savedId = studentCandidateService.saveCandidate(sc);
+//            fail("오류 X");
+//        } catch (Exception e) {
+//            // then
+//            assertThat(e.getMessage()).isEqualTo("지원날짜");
+//        }
+        Long savedId = studentCandidateService.saveCandidate(sc);
+
+        // then
+        assertThat(sc.getId()).isEqualTo(savedId);
+
     }
 
     @Test
@@ -262,7 +258,6 @@ public class StudentCandidateServiceImplTest {
         sc.setRrn("111111-1111111");
         sc.setPhone("010-1234-5678");
         sc.setAddress("서울특별시 무슨구 무슨동");
-        sc.setApplicationDate(LocalDate.of(2024, 11, 11));
         sc.setApplicationType("수시");
         sc.setFaculty("IT 융합");
         sc.setDepartment("정보보안학과");
@@ -287,7 +282,6 @@ public class StudentCandidateServiceImplTest {
         sc.setRrn("111111-1111111");
         sc.setPhone("010-1234-5678");
         sc.setAddress("서울특별시 무슨구 무슨동");
-        sc.setApplicationDate(LocalDate.of(2024, 11, 11));
         sc.setApplicationNumber(12345678);
         sc.setFaculty("IT 융합");
         sc.setDepartment("정보보안학과");
@@ -312,7 +306,6 @@ public class StudentCandidateServiceImplTest {
         sc.setRrn("111111-1111111");
         sc.setPhone("010-1234-5678");
         sc.setAddress("서울특별시 무슨구 무슨동");
-        sc.setApplicationDate(LocalDate.of(2024, 11, 11));
         sc.setApplicationNumber(12345678);
         sc.setApplicationType("수시");
         sc.setDepartment("정보보안학과");
@@ -337,7 +330,6 @@ public class StudentCandidateServiceImplTest {
         sc.setRrn("111111-1111111");
         sc.setPhone("010-1234-5678");
         sc.setAddress("서울특별시 무슨구 무슨동");
-        sc.setApplicationDate(LocalDate.of(2024, 11, 11));
         sc.setApplicationNumber(12345678);
         sc.setApplicationType("수시");
         sc.setFaculty("IT 융합");
@@ -362,7 +354,6 @@ public class StudentCandidateServiceImplTest {
         sc1.setRrn("111111-1111111");
         sc1.setPhone("010-1234-5678");
         sc1.setAddress("서울특별시 무슨구 무슨동");
-        sc1.setApplicationDate(LocalDate.of(2024, 11, 11));
         sc1.setApplicationNumber(12345678);
         sc1.setApplicationType("수시");sc1.setFaculty("IT 융합");sc1.setDepartment("정보보안학과");
 
@@ -372,7 +363,6 @@ public class StudentCandidateServiceImplTest {
         sc2.setRrn("111111-2222222");
         sc2.setPhone("010-1234-5678");
         sc2.setAddress("서울특별시 무슨구 무슨동");
-        sc2.setApplicationDate(LocalDate.of(2024, 11, 11));
         sc2.setApplicationNumber(87654321);
         sc2.setApplicationType("수시");
         sc2.setFaculty("IT 융합");
@@ -397,7 +387,6 @@ public class StudentCandidateServiceImplTest {
         sc1.setRrn("111111-1111111");
         sc1.setPhone("010-1234-5678");
         sc1.setAddress("서울특별시 무슨구 무슨동");
-        sc1.setApplicationDate(LocalDate.of(2024, 11, 11));
         sc1.setApplicationNumber(12345678);
         sc1.setApplicationType("수시");sc1.setFaculty("IT 융합");sc1.setDepartment("정보보안학과");
 
@@ -418,7 +407,6 @@ public class StudentCandidateServiceImplTest {
         sc1.setRrn("111111-1111111");
         sc1.setPhone("010-1234-5678");
         sc1.setAddress("서울특별시 무슨구 무슨동");
-        sc1.setApplicationDate(LocalDate.of(2024, 11, 11));
         sc1.setApplicationNumber(12345678);
         sc1.setApplicationType("수시");
         sc1.setFaculty("IT 융합1");
@@ -430,7 +418,6 @@ public class StudentCandidateServiceImplTest {
         sc2.setRrn("111111-2222222");
         sc2.setPhone("010-1234-5678");
         sc2.setAddress("서울특별시 무슨구 무슨동");
-        sc2.setApplicationDate(LocalDate.of(2024, 11, 11));
         sc2.setApplicationNumber(87654321);
         sc2.setApplicationType("수시");
         sc2.setFaculty("IT 융합2");
@@ -457,7 +444,6 @@ public class StudentCandidateServiceImplTest {
         sc1.setRrn("111111-1111111");
         sc1.setPhone("010-1234-5678");
         sc1.setAddress("서울특별시 무슨구 무슨동");
-        sc1.setApplicationDate(LocalDate.of(2024, 11, 11));
         sc1.setApplicationNumber(12345678);
         sc1.setApplicationType("수시");
         sc1.setFaculty("IT 융합");
@@ -469,7 +455,6 @@ public class StudentCandidateServiceImplTest {
         sc2.setRrn("111111-2222222");
         sc2.setPhone("010-1234-5678");
         sc2.setAddress("서울특별시 무슨구 무슨동");
-        sc2.setApplicationDate(LocalDate.of(2024, 11, 11));
         sc2.setApplicationNumber(87654321);
         sc2.setApplicationType("수시");
         sc2.setFaculty("IT 융합");
@@ -496,7 +481,6 @@ public class StudentCandidateServiceImplTest {
         sc1.setRrn("111111-1111111");
         sc1.setPhone("010-1234-5678");
         sc1.setAddress("서울특별시 무슨구 무슨동");
-        sc1.setApplicationDate(LocalDate.of(2024, 11, 11));
         sc1.setApplicationNumber(12345678);
         sc1.setApplicationType("수시");
         sc1.setFaculty("IT 융합");
@@ -508,7 +492,6 @@ public class StudentCandidateServiceImplTest {
         sc2.setRrn("111111-2222222");
         sc2.setPhone("010-1234-5678");
         sc2.setAddress("서울특별시 무슨구 무슨동");
-        sc2.setApplicationDate(LocalDate.of(2024, 11, 11));
         sc2.setApplicationNumber(87654321);
         sc2.setApplicationType("정시");
         sc2.setFaculty("IT 융합");

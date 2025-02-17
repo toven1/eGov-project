@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface TuitionPaymentRepository extends JpaRepository<TuitionPayment, Long> {
     Optional<TuitionPayment> findByStudentNumber(Integer studentNumber);
+    Optional<TuitionPayment> findByStudentNumberAndYear1Semester1True(Integer studentNumber);
 }

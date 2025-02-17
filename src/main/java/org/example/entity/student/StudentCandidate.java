@@ -2,15 +2,15 @@ package org.example.entity.student;
 
 
 
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.type.IntegerType;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "student_candidate")
+@EntityListeners(AuditingEntityListener.class)
 public class StudentCandidate {
 
     @Id
@@ -21,7 +21,11 @@ public class StudentCandidate {
     private String phone;
     private String address;
     private Integer applicationNumber;
-    private LocalDate applicationDate;
+
+    @CreatedDate
+    @Column(updatable = false)
+    private LocalDateTime applicationDate;
+
     private String applicationType;
     private String faculty;
     private String department;
@@ -87,11 +91,11 @@ public class StudentCandidate {
         this.applicationNumber = applicationNumber;
     }
 
-    public LocalDate getApplicationDate() {
+    public LocalDateTime getApplicationDateTime() {
         return applicationDate;
     }
 
-    public void setApplicationDate(LocalDate applicationDate) {
+    public void setApplicationDateTime(LocalDateTime applicationDate) {
         this.applicationDate = applicationDate;
     }
 
