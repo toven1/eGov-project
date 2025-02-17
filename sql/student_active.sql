@@ -12,8 +12,10 @@ CREATE TABLE student_active (
     semester INT NOT NULL DEFAULT 1, -- 학기 (기본값: 1학기)
     faculty VARCHAR(30) NOT NULL, -- 학부
     department VARCHAR(30) NOT NULL, -- 학과
+    department_code CHAR(2) NOT NULL, -- 학과 코드
     class_group VARCHAR(30) NOT NULL, -- 소속 클래스
     admission_date DATE NOT NULL,
 
-    UNIQUE (student_number) -- 학생 번호는 유일해야함
+    UNIQUE (student_number), -- 학생 번호는 유일해야함
+    UNIQUE (rrn)
 );

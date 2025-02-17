@@ -25,6 +25,17 @@ public class StudentCandidate {
     private String department;
     private boolean isAdmitted;
     private Integer studentNumber;
+    private String departmentCode;
+
+    public String getDepartmentCode() {
+        return departmentCode;
+    }
+
+    public void setDepartmentCode(String departmentCode) {
+        this.departmentCode = departmentCode;
+    }
+
+
 
     public Long getId() {
         return id;
