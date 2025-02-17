@@ -181,6 +181,7 @@ public class StudentCandidateServiceImpl implements StudentCandidateService {
     // 회원가입
     @Override
     public StudentActive transferCandidateToActive(Integer studentNumber) {
+
         StudentCandidate studentCandidate = studentCandidateRepository.findByStudentNumber(studentNumber)
                 .orElseThrow(() -> new EntityNotFoundException("Candidate not found"));
 

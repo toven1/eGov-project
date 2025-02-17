@@ -7,6 +7,8 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import static org.example.entity.student.Status.*;
+
 @Entity
 @Table(name = "student_active")
 @EntityListeners(AuditingEntityListener.class)
@@ -21,7 +23,10 @@ public class StudentActive {
     private String phone;
     private String address;
     private Integer studentNumber;
-    private Status status;
+
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "NUM('ENROLLED','LEAVE_OF_ABSENCE','MILITARY_LEAVE')")
+    private Status status = ENROLLED;
     private String admissionType;
     private int academicYear;
     private int semester;
