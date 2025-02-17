@@ -13,36 +13,19 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpSession;
 
-//@Service
-//@Transactional
-//public class StudentActiveServiceImpl implements StudentActiveService {
-//
-//    @Autowired
-//    private final StudentCandidateRepository studentCandidateRepository;
-//    @Autowired
-//    private final StudentActiveRepository studentActiveRepository;
-//
-//    public StudentActiveServiceImpl(StudentCandidateRepository studentCandidateRepository, StudentActiveRepository studentActiveRepository) {
-//        this.studentCandidateRepository = studentCandidateRepository;
-//        this.studentActiveRepository = studentActiveRepository;
-//    }
-//
-//    @Override
-//    public Long signUp(StudentActive studentActive) {
-//
-//        StudentCandidate candidate = studentCandidateRepository.findByStudentNumber(studentActive.getStudentNumber())
-//                .orElseThrow(() -> new IllegalArgumentException("해당 학생이 없습니다."));
-//        studentCandidateRepository.delete(candidate);
-//
-//        return studentActiveRepository.save(studentActive).getId();
-//    }
-//
-//
-
 @Service
+@Transactional
 public class StudentActiveServiceImpl implements StudentActiveService {
 
-    private StudentActiveRepository studentActiveRepository;
+    @Autowired
+    private final StudentCandidateRepository studentCandidateRepository;
+    @Autowired
+    private final StudentActiveRepository studentActiveRepository;
+
+    public StudentActiveServiceImpl(StudentCandidateRepository studentCandidateRepository, StudentActiveRepository studentActiveRepository) {
+        this.studentCandidateRepository = studentCandidateRepository;
+        this.studentActiveRepository = studentActiveRepository;
+    }
 
     @Override
     public boolean login(StudentActive number, String password) {
@@ -76,6 +59,17 @@ public class StudentActiveServiceImpl implements StudentActiveService {
             return true;
         }else
             return false;
+    }
+
+    // 회원가입
+    @Override
+    public Long signUp(StudentActive studentActive) {
+
+        StudentCandidate candidate = studentCandidateRepository.findByStudentNumber(studentActive.getStudentNumber())
+                .orElseThrow(() -> new IllegalArgumentException("해당 학생이 없습니다."));
+        studentCandidateRepository.delete(candidate);
+
+        return studentActiveRepository.save(studentActive).getId();
     }
 }
 
