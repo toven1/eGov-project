@@ -102,9 +102,22 @@ public class StudentCandidateServiceImpl implements StudentCandidateService {
     // 후보자 합격처리 다수
     @Override
     public void acceptCandidates(List<Integer> applicationNumbers) {
-        List<StudentCandidate> candidates = studentCandidateRepository.findByApplicationNumberIn(applicationNumbers);
-        candidates.forEach(candidate -> candidate.setAdmitted(true));
-        studentCandidateRepository.saveAll(candidates);
+        List<StudentCandidate> studentCandidates = studentCandidateRepository.findByApplicationNumberIn(applicationNumbers);
+        studentCandidates.forEach(studentCandidate -> {
+            studentCandidate.setAdmitted(true);
+
+            // 학번 생성
+            Integer studentNumber = generateStudentNumber(studentCandidate);
+
+            // 등록금 테이블 생성
+            TuitionPayment tuitionPayment = new TuitionPayment();
+            tuitionPayment.setStudentNumber(studentNumber);
+            tuitionPaymentRepository.save(tuitionPayment);
+
+            // 저장
+            studentCandidate.setStudentNumber(studentNumber);
+        });
+        studentCandidateRepository.saveAll(studentCandidates);
     }
 
     // 후보자 합격처리 한명만
