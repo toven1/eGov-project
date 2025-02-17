@@ -30,6 +30,8 @@ public class LoginController {
             model.addAttribute("stNumber",studentNumber);
             return "main";
         }else{
+            //로그인 정보가 일치 않다는걸 이벤트 메세지로 띄움
+            model.addAttribute("loginErrorMessage","회원정보가 일치하지 않습니다.");
             return "login";
         }
 
