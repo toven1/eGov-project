@@ -2,6 +2,8 @@ package org.example.entity.student;
 
 
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.type.IntegerType;
 
 import javax.persistence.*;
