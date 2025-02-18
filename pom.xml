@@ -461,6 +461,20 @@
             <artifactId>spring-aspects</artifactId>
             <version>5.3.27</version>
         </dependency>
+
+        <!--여기는 로그 파일을 남기기 위한 부분입니다.-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.30</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.6</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -471,4 +485,7 @@
             </plugin>
         </plugins>
     </build>
+
+
+
 </project>
