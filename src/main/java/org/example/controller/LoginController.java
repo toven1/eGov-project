@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class LoginController {
 
-    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+
 
     @Autowired
     private final StudentActiveService studentService;
@@ -32,6 +32,7 @@ public class LoginController {
         return "studentLogin";
     }
 
+    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @PostMapping("/studentLogin")
     public String login(@RequestParam String studentNumber,
@@ -51,16 +52,11 @@ public class LoginController {
         }
 
         if(isAuthenticated){
-            logger.info("Studentname: {} Login Successful", studentNumber); //로그 생성
-            session.setAttribute("loginStudent",student); //세션에 로그인한 사용자 정보를 저장
-
+            session.setAttribute("number",student); //세션에 로그인한 사용자 정보를 저장
             model.addAttribute("stNumber",studentNumber);
 
             return "redirect:/main";
         }else{
-            //실패한 로그를 남김 입력한 학번을 알수 있음
-            logger.info("Studentname: {} Login Failed", studentNumber); //실패 로그도 생성
-
             //로그인 정보가 일치 않다는걸 이벤트 메세지로 띄움
             model.addAttribute("loginErrorMessage","회원정보가 일치하지 않습니다.");
             return "studentLogin";
