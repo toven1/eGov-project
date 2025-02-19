@@ -24,7 +24,7 @@ import java.util.stream.Stream;
 import static org.example.util.ResidentRegistrationNumberEncryptor.*;
 import static org.junit.Assert.assertTrue;
 
-@Service
+@Service("studentCandidateService")
 @Transactional
 public class StudentCandidateServiceImpl implements StudentCandidateService {
 

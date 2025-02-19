@@ -25,7 +25,7 @@ public class StudentActive {
     private Integer studentNumber;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "NUM('ENROLLED','LEAVE_OF_ABSENCE','MILITARY_LEAVE')")
+    @Column(columnDefinition = "ENUM('ENROLLED','LEAVE_OF_ABSENCE','MILITARY_LEAVE')")
     private Status status = ENROLLED;
     private String admissionType;
     private int academicYear;

@@ -13,7 +13,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpSession;
 
-@Service
+@Service("studentActiveService")
 @Transactional
 public class StudentActiveServiceImpl implements StudentActiveService {
 

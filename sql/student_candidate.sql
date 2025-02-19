@@ -9,7 +9,7 @@ CREATE TABLE student_candidate (
     application_type VARCHAR(30) NOT NULL, -- 지원 유형
     faculty VARCHAR(30) NOT NULL, -- 학부
     department VARCHAR(30) NOT NULL, -- 학과
-    department_code CHAR(2) NOT NULL, -- 학과 코드
+    department_code VARCHAR(4) NOT NULL, -- 학과 코드
     is_admitted BOOLEAN NULL DEFAULT FALSE, -- 합격 여부 (기본값: false)
     student_number INT NULL, -- 합격 전에는 NULL, 합격 후 값이 들어감
 

@@ -10,7 +10,7 @@ public class Department {
     private Long departmentId;
 
     private String departmentName;        // 학과 이름
-    private String departmentCode;        // 학과 코드
+    private String departmentCode;       // 학과 코드
 
     public Long getDepartmentIid() {
         return departmentId;

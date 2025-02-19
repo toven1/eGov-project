@@ -15,7 +15,11 @@ import org.springframework.ui.Model;
 public class LoginController {
 
     @Autowired
-    private StudentActiveService studentService;
+    private final StudentActiveService studentService;
+
+    public LoginController(StudentActiveService studentService) {
+        this.studentService = studentService;
+    }
 
     @RequestMapping("/studentLogin")
     public String studentLoginForm(){
