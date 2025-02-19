@@ -28,7 +28,7 @@ public class StudentActiveServiceImpl implements StudentActiveService {
     }
 
     @Override
-    public boolean login(StudentActive number, String password) {
+    public boolean login(int number, String password) {
         //입력받은 데이터(아이디, 비밀번호)를 데이터 베이스에서 비교한다.
         boolean isValidStudent = checkStudentCredential(number, password);
         if (isValidStudent) {
@@ -36,20 +36,24 @@ public class StudentActiveServiceImpl implements StudentActiveService {
             HttpSession session = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getSession();
             session.setAttribute("student", number); //세션에 로그인한 사용지의 정보 저장
             session.setAttribute("isLoggedIn", true);//로그인 상태를 저장
-            //로그인 되었다는것을 이벤트 메세지로 띄우고 싶다.
+
             return true;
         } else {
             //일치하지 않으면 "회원정보가 일치 하지 않습니다."라고 띄우고 다시 로그인 화면으로 돌아간다
             HttpSession session = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getSession();
             session.setAttribute("student", number); //세션에 로그인한 사용지의 정보 저장
             session.setAttribute("isFalsedLogIn", false); //로그인이 실패한 것도 남긴다.
-            //로그인 정보가 일치 않다는걸 이벤트 메세지로 띄우고 싶다.
-
+            //로그인 정보가 일치 않다는걸 이벤트 메세지로 띄움
             return false;
         }
     }
+    @Override
+    public StudentActive getStudentbyNumber(int number)
+    {
+        return studentActiveRepository.findByStudentNumber(number).orElse(null);
+    }
 
-    private boolean checkStudentCredential(StudentActive number, String password)
+    private boolean checkStudentCredential(int number, String password)
     {
         //데이터 베이스에 접근해 학번이 일치하는 것 사람을 찾는다.
         StudentActive student = studentActiveRepository.findByStudentNumber(number).orElse(null);
@@ -60,6 +64,7 @@ public class StudentActiveServiceImpl implements StudentActiveService {
         }else
             return false;
     }
+
 
     // 회원가입
     @Override
