@@ -7,3 +7,6 @@ body {
 .main_container {
   display: inline-block;
 }
+.select-box {
+  width: 148px;
+}
