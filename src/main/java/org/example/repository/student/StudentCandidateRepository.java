@@ -24,7 +24,7 @@ public interface StudentCandidateRepository extends JpaRepository<StudentCandida
 
     List<StudentCandidate> findByDepartment(String department);
 
-    List<StudentCandidate> findByIsAdmitted(boolean isAdmitted);
+    List<StudentCandidate> findByIsAdmitted(Boolean isAdmitted);
 
     Optional<StudentCandidate> findByRrn(String rrn);
 

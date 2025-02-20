@@ -21,6 +21,8 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
+import static org.example.util.ResidentRegistrationNumberEncryptor.decryptRrn;
+import static org.example.util.ResidentRegistrationNumberEncryptor.encryptRrn;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -511,5 +513,45 @@ public class StudentCandidateServiceImplTest {
         });
     }
 
+    @Test
+    public void 종합_테스트(){
+        StudentCandidate sc1 = new StudentCandidate();
+        StudentCandidate sc2 = new StudentCandidate();
 
+        sc1.setName("test Name");
+        sc1.setRrn("111111-1111111");
+        sc1.setPhone("010-1234-5678");
+        sc1.setAddress("서울특별시 무슨구 무슨동");
+        sc1.setApplicationNumber(12345671);
+        sc1.setApplicationType("수시");
+        sc1.setFaculty("IT 융합");
+        sc1.setDepartment("정보보안학과");
+
+        sc2.setName("test Name");
+        sc2.setRrn("111111-1111111");
+        sc2.setPhone("010-1234-5678");
+        sc2.setAddress("서울특별시 무슨구 무슨동");
+        sc2.setApplicationNumber(12345611);
+        sc2.setApplicationType("수시");
+        sc2.setFaculty("IT 융합");
+        sc2.setDepartment("정보보안학과");
+
+        // when
+        try {
+            studentCandidateService.saveCandidate(sc1);
+            studentCandidateService.saveCandidate(sc2);
+            fail("오류 X");
+        } catch (Exception e) {
+            // then
+            assertThat(e.getMessage()).isEqualTo("이미 존재하는 후보자입니다.");
+        }
+
+        sc2.setRrn("111111-2222222");
+
+
+        studentCandidateService.saveCandidate(sc2);
+
+        String rrn = studentCandidateService.findOneStudentCandidate(sc1.getApplicationNumber()).get().getRrn();
+        assertThat("111111-1111111").isEqualTo(decryptRrn(rrn));
+    }
 }

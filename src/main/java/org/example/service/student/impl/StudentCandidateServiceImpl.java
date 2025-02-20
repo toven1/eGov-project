@@ -1,16 +1,11 @@
 package org.example.service.student.impl;
 
 import org.example.entity.Department;
-import org.example.entity.student.StudentActive;
-import org.example.entity.student.StudentCandidate;
-import org.example.entity.student.StudentNumberSequence;
-import org.example.entity.student.TuitionPayment;
+import org.example.entity.student.*;
 import org.example.repository.DepartmentRepository;
-import org.example.repository.student.StudentActiveRepository;
-import org.example.repository.student.StudentCandidateRepository;
-import org.example.repository.student.StudentNumberSequenceRepository;
-import org.example.repository.student.TuitionPaymentRepository;
+import org.example.repository.student.*;
 import org.example.service.student.StudentCandidateService;
+import org.example.util.ResidentRegistrationNumberEncryptor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,14 +33,20 @@ public class StudentCandidateServiceImpl implements StudentCandidateService {
     private final TuitionPaymentRepository tuitionPaymentRepository;
     @Autowired
     private final StudentActiveRepository studentActiveRepository;
+    @Autowired
+    private final StudentNotAdmittedRepository studentNotAdmittedRepository;
+    @Autowired
+    private final ApplicationNumberRepository applicationNumberRepository;
 
     @Autowired
-    public StudentCandidateServiceImpl(StudentCandidateRepository studentCandidateRepository, StudentNumberSequenceRepository studentNumberSequenceRepository, DepartmentRepository departmentRepository, TuitionPaymentRepository tuitionPaymentRepository, StudentActiveRepository studentActiveRepository) {
+    public StudentCandidateServiceImpl(StudentCandidateRepository studentCandidateRepository, StudentNumberSequenceRepository studentNumberSequenceRepository, DepartmentRepository departmentRepository, TuitionPaymentRepository tuitionPaymentRepository, StudentActiveRepository studentActiveRepository, StudentNotAdmittedRepository studentNotAdmittedRepository, ApplicationNumberRepository applicationNumberRepository) {
         this.studentCandidateRepository = studentCandidateRepository;
         this.studentNumberSequenceRepository = studentNumberSequenceRepository;
         this.departmentRepository = departmentRepository;
         this.tuitionPaymentRepository = tuitionPaymentRepository;
         this.studentActiveRepository = studentActiveRepository;
+        this.studentNotAdmittedRepository = studentNotAdmittedRepository;
+        this.applicationNumberRepository = applicationNumberRepository;
     }
 
     @Override
@@ -69,6 +70,9 @@ public class StudentCandidateServiceImpl implements StudentCandidateService {
 
         // 저장
         studentCandidateRepository.save(studentCandidate);
+        ApplicationNumber applicationNumber = new ApplicationNumber(studentCandidate.getApplicationNumber());
+        applicationNumberRepository.save(applicationNumber);
+
 
         return studentCandidate.getId();
     }
@@ -81,7 +85,7 @@ public class StudentCandidateServiceImpl implements StudentCandidateService {
         // 주민번호
         Optional<StudentCandidate> rrn = studentCandidateRepository.findByRrn(studentCandidate.getRrn());
         // 수험번호
-        Optional<StudentCandidate> applicationNumber = studentCandidateRepository.findByApplicationNumber(studentCandidate.getApplicationNumber());
+        Optional<ApplicationNumber> applicationNumber = applicationNumberRepository.findByApplicationNumber(studentCandidate.getApplicationNumber());
 
         // 묶어서 체크
         Stream.of(rrn, applicationNumber).forEach(m -> m.ifPresent(
@@ -110,6 +114,10 @@ public class StudentCandidateServiceImpl implements StudentCandidateService {
     public void acceptCandidates(List<Integer> applicationNumbers) {
         List<StudentCandidate> studentCandidates = studentCandidateRepository.findByApplicationNumberIn(applicationNumbers);
         studentCandidates.forEach(studentCandidate -> {
+            if (studentCandidate.isAdmitted() != null) {
+                throw new IllegalStateException("적절하지 못한 접근");
+            }
+
             studentCandidate.setAdmitted(true);
 
             // 학번 생성
@@ -132,6 +140,10 @@ public class StudentCandidateServiceImpl implements StudentCandidateService {
         Optional<StudentCandidate> sc = studentCandidateRepository.findByApplicationNumber(applicationNumber);
         // 없으면 실행 X
         sc.ifPresent(studentCandidate->{
+            if (studentCandidate.isAdmitted() != null) {
+                throw new IllegalStateException("적절하지 못한 접근");
+            }
+
             studentCandidate.setAdmitted(true);
 
             // 학번 생성
@@ -195,6 +207,24 @@ public class StudentCandidateServiceImpl implements StudentCandidateService {
 
         // `StudentActive` 객체 생성 반환
         return new StudentActive(studentCandidate);
+    }
+
+
+    // 불합격 처리
+    @Override
+    public void NotAdmittedCandidate(Integer applicationNumber) {
+        StudentCandidate studentCandidate = studentCandidateRepository.findByApplicationNumber(applicationNumber)
+                .orElseThrow(() -> new EntityNotFoundException("Candidate not found"));
+
+        if(studentCandidate.isAdmitted() != null) {
+            throw new IllegalStateException("적절하지 못한 접근");
+        }
+        studentCandidate.setAdmitted(false);
+        StudentNotAdmitted studentNotAdmitted = new StudentNotAdmitted(studentCandidate);
+
+        studentNotAdmittedRepository.save(studentNotAdmitted);
+        studentCandidateRepository.delete(studentCandidate);
+
     }
 
     @Override

@@ -29,7 +29,7 @@ public class StudentCandidate {
     private String applicationType;
     private String faculty;
     private String department;
-    private boolean isAdmitted;
+    private Boolean isAdmitted;
     private Integer studentNumber;
     private String departmentCode;
 
@@ -123,11 +123,11 @@ public class StudentCandidate {
         this.department = department;
     }
 
-    public boolean isAdmitted() {
+    public Boolean isAdmitted() {
         return isAdmitted;
     }
 
-    public void setAdmitted(boolean admitted) {
+    public void setAdmitted(Boolean admitted) {
         isAdmitted = admitted;
     }
 

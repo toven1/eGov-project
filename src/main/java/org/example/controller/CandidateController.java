@@ -48,6 +48,6 @@ public class CandidateController {
         studentCandidate.setDepartment(form.getDepartment());
 
         studentCandidateRepository.save(studentCandidate);
-        return "redirect:/";
+        return "redirect:/admission-office";
     }
 }

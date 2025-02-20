@@ -1,8 +1,10 @@
 package org.example.service.student;
 
 
+import lombok.Data;
 import org.example.entity.student.StudentActive;
 import org.example.entity.student.StudentCandidate;
+import org.example.entity.student.StudentNotAdmitted;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,9 +26,12 @@ public interface StudentCandidateService {
     // 학번 생성
     @Transactional
     Integer generateStudentNumber(StudentCandidate studentCandidate);
-    //
+    // Active 객체로 변환
     @Transactional
     StudentActive transferCandidateToActive(Integer studentNumber);
+    // 불합격 처리
+    void NotAdmittedCandidate(Integer applicationNumber);
+
 
     // 지원자 모두 찾기
     List<StudentCandidate> findAllStudentCandidates();
