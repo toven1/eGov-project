@@ -1,17 +1,18 @@
 package org.example.service.student.impl;
 
+import java.util.stream.Collectors;
 import org.example.entity.Department;
 import org.example.entity.student.*;
 import org.example.repository.DepartmentRepository;
 import org.example.repository.student.*;
 import org.example.service.student.StudentCandidateService;
-import org.example.util.ResidentRegistrationNumberEncryptor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -209,6 +210,29 @@ public class StudentCandidateServiceImpl implements StudentCandidateService {
         return new StudentActive(studentCandidate);
     }
 
+    @Override
+    public List<StudentCandidate> transferNotAdmittedToCandidate(List<StudentNotAdmitted> notAdmittedList) {
+        return notAdmittedList.stream().map(notAdmitted -> {
+            StudentCandidate candidate = new StudentCandidate();
+
+            // 필요한 필드 매핑
+            candidate.setId(notAdmitted.getId());
+            candidate.setName(notAdmitted.getName());
+            candidate.setPhone(notAdmitted.getPhone());
+            candidate.setApplicationNumber(notAdmitted.getApplicationNumber());
+            candidate.setApplicationDateTime(notAdmitted.getApplicationDate());
+            candidate.setApplicationType(notAdmitted.getApplicationType());
+            candidate.setFaculty(notAdmitted.getFaculty());
+            candidate.setDepartment(notAdmitted.getDepartment());
+            candidate.setDepartmentCode(notAdmitted.getDepartmentCode());
+
+            // isAdmitted 필드가 없을 수도 있으므로 기본값 false 설정 (예시)
+            candidate.setAdmitted(false);
+
+            return candidate;
+        }).collect(Collectors.toList());
+    }
+
 
     // 불합격 처리
     @Override
@@ -237,20 +261,38 @@ public class StudentCandidateServiceImpl implements StudentCandidateService {
         return studentCandidateRepository.findByApplicationNumber(applicationNumber);
     }
 
+
+    @Override
+    public List<StudentCandidate> findStudentCandidatesByName(String name) {
+        return studentCandidateRepository.findByName(name);
+    }
+
+
+
+    @Override
+    public List<StudentCandidate> findStudentCandidatesByPhone(String phone) {
+        return studentCandidateRepository.findByPhone(phone);
+    }
+
+
+
     @Override
     public List<StudentCandidate> findStudentCandidatesByFaculty(String faculty) {
         return studentCandidateRepository.findByFaculty(faculty);
     }
+
 
     @Override
     public List<StudentCandidate> findStudentCandidatesByDepartment(String department) {
         return studentCandidateRepository.findByDepartment(department);
     }
 
+
     @Override
     public List<StudentCandidate> findStudentCandidatesByApplicationType(String applicationType) {
         return studentCandidateRepository.findByApplicationType(applicationType);
     }
+
 
     @Override
     public List<StudentCandidate> findAdmittedStudentCandidates() {
@@ -260,5 +302,95 @@ public class StudentCandidateServiceImpl implements StudentCandidateService {
     @Override
     public List<StudentCandidate> findNotAdmittedStudentCandidates() {
         return studentCandidateRepository.findByIsAdmitted(false);
+    }
+
+    @Override
+    public List<StudentCandidate> findNullAdmittedStudentCandidates() {
+        return studentCandidateRepository.findByIsAdmittedIsNull();
+    }
+
+    @Override
+    public List<StudentCandidate> searchCandidates(String now, String searchType, String searchText) {
+        List<StudentCandidate> candidates = new ArrayList<>();
+        switch (now) {
+            case "main":
+                switch (searchType) {
+                    case "name":
+                        candidates = studentCandidateRepository.findByNameContainingAndIsAdmittedIsNull(searchText);
+                        break;
+                    case "phone":
+                        candidates = studentCandidateRepository.findByPhoneContainingAndIsAdmittedNull(searchText);
+                        break;
+                    case "applicationNumber":
+                        candidates = studentCandidateRepository.findByApplicationNumberContainingAndIsAdmittedIsNull(Integer.parseInt(searchText));
+                        break;
+                    case "applicationType":
+                        candidates = studentCandidateRepository.findByApplicationTypeContainingAndIsAdmittedIsNull(searchText);
+                        break;
+                    case "faculty":
+                        candidates = studentCandidateRepository.findByFacultyContainingAndIsAdmittedIsNull(searchText);
+                        break;
+                    case "department":
+                        candidates = studentCandidateRepository.findByDepartmentContainingAndIsAdmittedIsNull(searchText);
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case "pass":
+                switch (searchType) {
+                    case "name":
+                        candidates = studentCandidateRepository.findByNameContainingAndIsAdmittedIsTrue(searchText);
+                        break;
+                    case "phone":
+                        candidates = studentCandidateRepository.findByPhoneContainingAndIsAdmittedTrue(searchText);
+                        break;
+                    case "applicationNumber":
+                        candidates = studentCandidateRepository.findByApplicationNumberContainingAndIsAdmittedIsTrue(Integer.parseInt(searchText));
+                        break;
+                    case "applicationType":
+                        candidates = studentCandidateRepository.findByApplicationTypeContainingAndIsAdmittedIsTrue(searchText);
+                        break;
+                    case "faculty":
+                        candidates = studentCandidateRepository.findByFacultyContainingAndIsAdmittedIsTrue(searchText);
+                        break;
+                    case "department":
+                        candidates = studentCandidateRepository.findByDepartmentContainingAndIsAdmittedIsTrue(searchText);
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case "fail":
+                switch (searchType) {
+                    case "name":
+                        candidates = transferNotAdmittedToCandidate(studentNotAdmittedRepository.findByNameContaining(searchText));
+                        break;
+                    case "phone":
+                        candidates = transferNotAdmittedToCandidate(studentNotAdmittedRepository.findByPhoneContaining(searchText));
+                        break;
+                    case "applicationNumber":
+                        candidates = transferNotAdmittedToCandidate(studentNotAdmittedRepository.findByApplicationNumberContaining(Integer.parseInt(searchText)));
+                        break;
+                    case "applicationType":
+                        candidates = transferNotAdmittedToCandidate(studentNotAdmittedRepository.findByApplicationTypeContaining(searchText));
+                        break;
+                    case "faculty":
+                        candidates = transferNotAdmittedToCandidate(studentNotAdmittedRepository.findByFacultyContaining(searchText));
+                        break;
+                    case "department":
+                        candidates = transferNotAdmittedToCandidate(studentNotAdmittedRepository.findByDepartmentCodeContaining(searchText));
+                        break;
+                    default:
+                        break;
+                }
+                break;
+        }
+        return candidates;
+    }
+
+    @Override
+    public List<StudentNotAdmitted> findAllNotAdmitted() {
+        return studentNotAdmittedRepository.findAll();
     }
 }

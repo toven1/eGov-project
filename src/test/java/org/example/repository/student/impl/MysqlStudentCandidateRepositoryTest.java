@@ -32,7 +32,7 @@ public class MysqlStudentCandidateRepositoryTest {
         sc.setName("testname");
 
         //    sc.setId(1L);
-        sc.setRrn("111111-1111111");
+        sc.setRrn("999999-9999999");
         sc.setPhone("010-1234-5678");
         sc.setAddress("서울특별시 무슨구 무슨동");
         sc.setApplicationNumber(12345678);

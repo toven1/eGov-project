@@ -14,10 +14,11 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <egovframework.version>3.10.0</egovframework.version>
+        <egovframework.version>3.1.0</egovframework.version>
     </properties>
 
     <repositories>
+
         <repository>
             <id>central</id>
             <url>https://repo.maven.apache.org/maven2</url>
@@ -426,24 +427,27 @@
 
         <!--여기는 jsp 사용할때 필요한 의존성이에요!!-->
         <!-- Jakarta Servlet API 의존성 추가 -->
+        <!-- Servlet API (Java EE 8) -->
         <dependency>
-            <groupId>jakarta.servlet</groupId>
-            <artifactId>jakarta.servlet-api</artifactId>
-            <version>6.0.0</version> <!-- 최신 버전 확인 후 사용 -->
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>  <!-- Tomcat 9과 호환되는 최신 Servlet API -->
             <scope>provided</scope>
         </dependency>
 
+        <!-- JSP API (Java EE 8) -->
         <dependency>
-            <groupId>jakarta.servlet.jsp</groupId>
-            <artifactId>jakarta.servlet.jsp-api</artifactId>
-            <version>3.0.0</version>  <!-- JSP 3.0은 jakarta로 변경된 최신 버전 -->
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>javax.servlet.jsp-api</artifactId>
+            <version>2.3.3</version>  <!-- Tomcat 9과 호환 -->
             <scope>provided</scope>
         </dependency>
 
+        <!-- JSTL (Java EE 8) -->
         <dependency>
-            <groupId>jakarta.servlet.jsp.jstl</groupId>
-            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-            <version>2.0.0</version>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>  <!-- Tomcat 9에서는 JSTL 1.2 사용 -->
         </dependency>
 
         <!-- 박지훈 -->
@@ -498,6 +502,29 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-aspects</artifactId>
             <version>5.3.27</version>
+        </dependency>
+        <!-- mail -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>javax.mail-api</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>2.7.4</version>
+        </dependency>
+        <!-- Lettuce 클라이언트 -->
+        <dependency>
+            <groupId>io.lettuce</groupId>
+            <artifactId>lettuce-core</artifactId>
+            <version>6.2.6.RELEASE</version> <!-- 최신 버전 확인 후 사용 -->
         </dependency>
     </dependencies>
 

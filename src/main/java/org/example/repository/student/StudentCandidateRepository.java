@@ -15,16 +15,37 @@ public interface StudentCandidateRepository extends JpaRepository<StudentCandida
     Optional<StudentCandidate> findById(Long id);
 
     List<StudentCandidate> findByName(String name);
+    List<StudentCandidate> findByNameContainingAndIsAdmittedIsNull(String name);
+    List<StudentCandidate> findByNameContainingAndIsAdmittedIsTrue(String name);
+    List<StudentCandidate> findByNameContainingAndIsAdmittedIsFalse(String name);
+
+    List<StudentCandidate> findByPhone(String phone);
+    List<StudentCandidate> findByPhoneContainingAndIsAdmittedNull(String phone);
+    List<StudentCandidate> findByPhoneContainingAndIsAdmittedTrue(String phone);
+    List<StudentCandidate> findByPhoneContainingAndIsAdmittedFalse(String phone);
 
     Optional<StudentCandidate> findByApplicationNumber(Integer applicationNumber);
+    List<StudentCandidate> findByApplicationNumberContainingAndIsAdmittedIsNull(Integer applicationNumber);
+    List<StudentCandidate> findByApplicationNumberContainingAndIsAdmittedIsTrue(Integer applicationNumber);
+    List<StudentCandidate> findByApplicationNumberContainingAndIsAdmittedIsFalse(Integer applicationNumber);
 
     List<StudentCandidate> findByApplicationType(String applicationType);
+    List<StudentCandidate> findByApplicationTypeContainingAndIsAdmittedIsNull(String applicationType);
+    List<StudentCandidate> findByApplicationTypeContainingAndIsAdmittedIsTrue(String applicationType);
+    List<StudentCandidate> findByApplicationTypeContainingAndIsAdmittedIsFalse(String applicationType);
 
     List<StudentCandidate> findByFaculty(String faculty);
+    List<StudentCandidate> findByFacultyContainingAndIsAdmittedIsNull(String faculty);
+    List<StudentCandidate> findByFacultyContainingAndIsAdmittedIsTrue(String faculty);
+    List<StudentCandidate> findByFacultyContainingAndIsAdmittedIsFalse(String faculty);
 
     List<StudentCandidate> findByDepartment(String department);
+    List<StudentCandidate> findByDepartmentContainingAndIsAdmittedIsNull(String department);
+    List<StudentCandidate> findByDepartmentContainingAndIsAdmittedIsTrue(String department);
+    List<StudentCandidate> findByDepartmentContainingAndIsAdmittedIsFalse(String department);
 
     List<StudentCandidate> findByIsAdmitted(Boolean isAdmitted);
+    List<StudentCandidate> findByIsAdmittedIsNull();
 
     Optional<StudentCandidate> findByRrn(String rrn);
 

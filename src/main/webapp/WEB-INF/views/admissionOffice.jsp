@@ -11,7 +11,7 @@
 <div class="main_container">
   <h1>입학처</h1>
   <h2>지원자 명단 추가</h2>
-  <form action="/admission-office/new" method="post">
+  <form action="/admission/office/new" method="post">
     <div class="container">
       <div class="container1">
         <div>
@@ -79,7 +79,7 @@
   <br>
   <button type="submit" name="button" >추가</button>
   <br>
-  <button type="button" name="button" onclick="location.href='입학처메인.html'">메인으로</button>
+  <button type="button" name="button" onclick="location.href='/admission/main'">메인으로</button>
   </form>
 </div>
 </body>

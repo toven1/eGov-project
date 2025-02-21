@@ -13,6 +13,8 @@
     <!-- @ComponentScan(basePackages = "org.example.controller") -->
     <context:component-scan base-package="org.example"/>
 
+
+
     <!-- InternalResourceViewResolver Bean 설정 -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/"/>

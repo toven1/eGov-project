@@ -48,7 +48,7 @@ public class StudentCandidateServiceImplTest {
         StudentCandidate sc = new StudentCandidate();
 
         sc.setName("test Name");
-        sc.setRrn("111111-1111111");
+        sc.setRrn("999999-9999999");
         sc.setPhone("010-1234-5678");
         sc.setAddress("서울특별시 무슨구 무슨동");
         sc.setApplicationNumber(12345678);
@@ -69,7 +69,7 @@ public class StudentCandidateServiceImplTest {
         StudentCandidate sc = new StudentCandidate();
 
         sc.setName("test name");
-        sc.setRrn("111111-1111111");
+        sc.setRrn("999999-9999999");
         sc.setPhone("010-1234-5678");
         sc.setAddress("서울특별시 무슨구 무슨동");
         sc.setApplicationNumber(12345678);
@@ -92,7 +92,7 @@ public class StudentCandidateServiceImplTest {
         StudentCandidate sc1 = new StudentCandidate();
 
         sc1.setName("test name");
-        sc1.setRrn("111111-1111111");
+        sc1.setRrn("999999-9999999");
         sc1.setPhone("010-1234-5678");
         sc1.setAddress("서울특별시 무슨구 무슨동");
         sc1.setApplicationNumber(12345678);
@@ -229,7 +229,7 @@ public class StudentCandidateServiceImplTest {
         StudentCandidate sc = new StudentCandidate();
 
         sc.setName("test name");
-        sc.setRrn("111111-1111111");
+        sc.setRrn("999999-9999999");
         sc.setPhone("010-1234-5678");
         sc.setAddress("서울특별시 무슨구 무슨동");
         sc.setApplicationNumber(12345678);
@@ -355,7 +355,7 @@ public class StudentCandidateServiceImplTest {
         StudentCandidate sc1 = new StudentCandidate();
 
         sc1.setName("test Name");
-        sc1.setRrn("111111-1111111");
+        sc1.setRrn("999999-9999999");
         sc1.setPhone("010-1234-5678");
         sc1.setAddress("서울특별시 무슨구 무슨동");
         sc1.setApplicationNumber(12345678);
@@ -388,7 +388,7 @@ public class StudentCandidateServiceImplTest {
         StudentCandidate sc1 = new StudentCandidate();
 
         sc1.setName("test Name");
-        sc1.setRrn("111111-1111111");
+        sc1.setRrn("999999-9999999");
         sc1.setPhone("010-1234-5678");
         sc1.setAddress("서울특별시 무슨구 무슨동");
         sc1.setApplicationNumber(12345678);
@@ -408,7 +408,7 @@ public class StudentCandidateServiceImplTest {
         StudentCandidate sc1 = new StudentCandidate();
 
         sc1.setName("test Name");
-        sc1.setRrn("111111-1111111");
+        sc1.setRrn("999999-9999999");
         sc1.setPhone("010-1234-5678");
         sc1.setAddress("서울특별시 무슨구 무슨동");
         sc1.setApplicationNumber(12345678);
@@ -445,7 +445,7 @@ public class StudentCandidateServiceImplTest {
         StudentCandidate sc1 = new StudentCandidate();
 
         sc1.setName("test Name");
-        sc1.setRrn("111111-1111111");
+        sc1.setRrn("999999-9999999");
         sc1.setPhone("010-1234-5678");
         sc1.setAddress("서울특별시 무슨구 무슨동");
         sc1.setApplicationNumber(12345678);
@@ -482,7 +482,7 @@ public class StudentCandidateServiceImplTest {
         StudentCandidate sc1 = new StudentCandidate();
 
         sc1.setName("test Name");
-        sc1.setRrn("111111-1111111");
+        sc1.setRrn("999999-9999999");
         sc1.setPhone("010-1234-5678");
         sc1.setAddress("서울특별시 무슨구 무슨동");
         sc1.setApplicationNumber(12345678);
@@ -493,7 +493,7 @@ public class StudentCandidateServiceImplTest {
         StudentCandidate sc2 = new StudentCandidate();
 
         sc2.setName("test Name");
-        sc2.setRrn("111111-2222222");
+        sc2.setRrn("999999-2222222");
         sc2.setPhone("010-1234-5678");
         sc2.setAddress("서울특별시 무슨구 무슨동");
         sc2.setApplicationNumber(87654321);
@@ -519,7 +519,7 @@ public class StudentCandidateServiceImplTest {
         StudentCandidate sc2 = new StudentCandidate();
 
         sc1.setName("test Name");
-        sc1.setRrn("111111-1111111");
+        sc1.setRrn("999999-9999999");
         sc1.setPhone("010-1234-5678");
         sc1.setAddress("서울특별시 무슨구 무슨동");
         sc1.setApplicationNumber(12345671);
@@ -528,7 +528,7 @@ public class StudentCandidateServiceImplTest {
         sc1.setDepartment("정보보안학과");
 
         sc2.setName("test Name");
-        sc2.setRrn("111111-1111111");
+        sc2.setRrn("999999-9999999");
         sc2.setPhone("010-1234-5678");
         sc2.setAddress("서울특별시 무슨구 무슨동");
         sc2.setApplicationNumber(12345611);
@@ -546,12 +546,12 @@ public class StudentCandidateServiceImplTest {
             assertThat(e.getMessage()).isEqualTo("이미 존재하는 후보자입니다.");
         }
 
-        sc2.setRrn("111111-2222222");
+        sc2.setRrn("999999-2222222");
 
 
         studentCandidateService.saveCandidate(sc2);
 
         String rrn = studentCandidateService.findOneStudentCandidate(sc1.getApplicationNumber()).get().getRrn();
-        assertThat("111111-1111111").isEqualTo(decryptRrn(rrn));
+        assertThat("999999-9999999").isEqualTo(decryptRrn(rrn));
     }
 }

@@ -42,7 +42,7 @@ public class StudentActiveServiceImplTest extends TestCase {
         StudentCandidate studentCandidate = new StudentCandidate();
 
         studentCandidate.setName("test Name");
-        studentCandidate.setRrn("111111-1111111");
+        studentCandidate.setRrn("999999-9999999");
         studentCandidate.setPhone("010-1234-5678");
         studentCandidate.setAddress("서울특별시 무슨구 무슨동");
         studentCandidate.setApplicationNumber(12345678);

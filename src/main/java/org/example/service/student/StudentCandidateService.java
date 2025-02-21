@@ -1,11 +1,9 @@
 package org.example.service.student;
 
 
-import lombok.Data;
 import org.example.entity.student.StudentActive;
 import org.example.entity.student.StudentCandidate;
 import org.example.entity.student.StudentNotAdmitted;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -29,6 +27,10 @@ public interface StudentCandidateService {
     // Active 객체로 변환
     @Transactional
     StudentActive transferCandidateToActive(Integer studentNumber);
+
+    @Transactional
+    List<StudentCandidate> transferNotAdmittedToCandidate(List<StudentNotAdmitted> notAdmittedList);
+
     // 불합격 처리
     void NotAdmittedCandidate(Integer applicationNumber);
 
@@ -37,6 +39,11 @@ public interface StudentCandidateService {
     List<StudentCandidate> findAllStudentCandidates();
     // 지원자 한명 조회 ( 수험번호로 조회 )
     Optional<StudentCandidate> findOneStudentCandidate(Integer applicationNumber);
+
+    // 이름으로 찾기
+    List<StudentCandidate> findStudentCandidatesByName(String name);// 이름으로 찾기
+    // 전화번호로 찾기
+    List<StudentCandidate> findStudentCandidatesByPhone(String phone);
     // 학부로 지원자 조회
     List<StudentCandidate> findStudentCandidatesByFaculty(String faculty);
     // 학과로 지원자 조회
@@ -45,9 +52,12 @@ public interface StudentCandidateService {
     List<StudentCandidate> findStudentCandidatesByApplicationType(String applicationType);
     // 합격한 지원자 조회
     List<StudentCandidate> findAdmittedStudentCandidates();
-    // 아직 합격 여부가 안나온 지원자 조회
+    // 불합격
     List<StudentCandidate> findNotAdmittedStudentCandidates();
+    // 아직 X
+    List<StudentCandidate> findNullAdmittedStudentCandidates();
 
+    List<StudentCandidate> searchCandidates(String now, String searchType, String searchText);
 
-
+    List<StudentNotAdmitted> findAllNotAdmitted();
 }
