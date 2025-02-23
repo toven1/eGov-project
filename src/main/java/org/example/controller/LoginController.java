@@ -6,7 +6,6 @@ import org.example.entity.student.StudentActive;
 import org.example.service.student.StudentActiveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,9 +29,8 @@ public class LoginController {
 
     @RequestMapping("/studentLogin")
     public String studentLoginForm(){
-       return "studentLogin.jsp";
+        return "studentLogin.jsp";
     }
-
 
 
     @PostMapping("/studentLogin")
