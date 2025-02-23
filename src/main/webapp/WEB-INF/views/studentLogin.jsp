@@ -11,6 +11,7 @@
 <body>
 <center>
     <h2>로그인</h2>
+
     <form action="${pageContext.request.contextPath}/studentLogin" method="post">
         <label for="studentNumber">아이디</label><br>
         <input type="text" id="studentNumber" name="studentNumber" required><br>
@@ -27,6 +28,10 @@
             <button type="button">직원</button>
         </div>
     </form>
+
+    <c:if test="${not empty loginErrorMessage}">
+        <p style="color: red; font-weight: normal;">${loginErrorMessage}</p>
+    </c:if>
 </center>
 </body>
 </html>

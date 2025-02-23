@@ -18,7 +18,7 @@ public interface StudentActiveRepository extends JpaRepository<StudentActive, Lo
 
     Optional<StudentActive> findByName(StudentActive studentActive);
 
-    Optional<StudentActive> findByStudentNumber(int studentActive);
+    Optional<StudentActive> findByStudentNumber(int studentNumber);
 
     Optional<StudentActive> findByStatus(Status status);
 

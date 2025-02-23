@@ -13,7 +13,7 @@
     </appender>
 
     <!-- 파일로 로그를 남김 -->
-    <appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>c:\Logs\Login.log</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <Pattern> <!--순서대로 시간, 스레드 이름, 로그의레벨, 로거 이름, 로그 메세지를 남긴다. -->
