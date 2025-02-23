@@ -29,7 +29,7 @@ public class LoginController {
 
     @RequestMapping("/studentLogin")
     public String studentLoginForm(){
-        return "studentLogin";
+        return "studentLogin.jsp";
     }
 
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
