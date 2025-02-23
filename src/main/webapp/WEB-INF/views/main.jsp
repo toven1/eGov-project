@@ -1,13 +1,3 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="org.example.entity.student.StudentActive" %>
-<%
-  // 세션에서 로그인한 학생 정보 가져오기
-  StudentActive student = (StudentActive) session.getAttribute("student");
-  if (student == null) {
-    response.sendRedirect("login.jsp"); // 로그인되지 않은 경우 로그인 페이지로 이동
-    return;
-  }
-%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -22,7 +12,6 @@
   </script>
 </head>
 <body>
-
 <!-- 사이드바 열기 버튼 -->
 <button class="open-btn" onclick="toggleSidebar()">&#9776;</button>
 
@@ -39,7 +28,7 @@
       <li><a href="#">교육비 납입 증명서</a></li>
       <li><a href="#">제증명서 발급</a></li>
       <li><a href="#">로그인 암호 변경</a></li>
-      <li><a href="logout.jsp">로그아웃</a></li>
+      <li><a href="#">로그아웃</a></li>
     </ul>
   </div>
 
@@ -48,13 +37,13 @@
     <div class="student-info">
       <h1>학생 정보</h1>
       <table class="student-table">
-        <tr><th>이름</th><td><%= student.getName() %></td></tr>
-        <tr><th>학번</th><td><%= student.getStudentNumber() %></td></tr>
-        <tr><th>학년</th><td><%= student.getAcademicYear() %></td></tr>
-        <tr><th>학기</th><td><%= student.getSemester() %></td></tr>
-        <tr><th>학부</th><td><%= student.getFaculty() %></td></tr>
-        <tr><th>학과</th><td><%= student.getDepartment() %></td></tr>
-        <tr><th>소속 클래스</th><td><%= student.getClassGroup() %></td></tr>
+        <tr><th>이름</th><td>student.name</td></tr>
+        <tr><th>학번</th><td>student.student_number</td></tr>
+        <tr><th>학년</th><td>student.academic_year</td></tr>
+        <tr><th>학기</th><td>student.semester</td></tr>
+        <tr><th>학부</th><td>student.faculty</td></tr>
+        <tr><th>학과</th><td>student.department</td></tr>
+        <tr><th>소속 클래스</th><td>student.class_group</td></tr>
       </table>
     </div>
   </div>
