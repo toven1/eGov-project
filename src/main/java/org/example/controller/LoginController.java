@@ -6,6 +6,7 @@ import org.example.entity.student.StudentActive;
 import org.example.service.student.StudentActiveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,12 +17,12 @@ import javax.servlet.http.HttpSession;
 // 아마 교수,직원 테이블이 생성되면 변경해야할꺼 같다.
 
 @Controller
+@RequestMapping("studentLogin")
 public class LoginController {
-
-
 
     @Autowired
     private final StudentActiveService studentService;
+    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     public LoginController(StudentActiveService studentService) {
         this.studentService = studentService;
@@ -29,10 +30,10 @@ public class LoginController {
 
     @RequestMapping("/studentLogin")
     public String studentLoginForm(){
-        return "studentLogin.jsp";
+       return "studentLogin.jsp";
     }
 
-    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+
 
     @PostMapping("/studentLogin")
     public String login(@RequestParam String studentNumber,
