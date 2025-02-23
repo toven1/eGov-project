@@ -19,7 +19,7 @@
         <input type="password" id="password" name="password" required><br>
 
         <button type="submit" class="login-btn">로그인</button>
-        <button type="button" class="signup-btn" onclick="location.href='admissionOffice.html'">회원가입</button>
+        <button type="button" class="signup-btn" onclick="location.href='/auth/verify'">회원가입</button>
 
         <div class="role-buttons">
             <button type="button">학생</button> <!--기본적으로는 학생 로그인이 디폴트로 뜨고 버튼을 누르면 교수인지 직원인지 분리할수 있도록 한다.-->

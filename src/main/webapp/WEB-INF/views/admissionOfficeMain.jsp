@@ -23,9 +23,9 @@
     <div class="sidebar closed">
         <button class="close-btn" onclick="toggleSidebar()">×</button>
         <ul>
-            <li><a href="/admission/main">메인 페이지</a></li>
-            <li><a href="/admission/main/pass">합격자 조회</a></li>
-            <li><a href="/admission/main/fail">불합격자 조회</a></li>
+            <li id="main"><a href="/admission/main">메인 페이지</a></li>
+            <li id="pass"><a href="/admission/main/pass">합격자 조회</a></li>
+            <li id="fail"><a href="/admission/main/fail">불합격자 조회</a></li>
             <li><a href="/admission/office">지원자 추가</a></li>
         </ul>
     </div>
@@ -77,14 +77,15 @@
         document.getElementById("form").submit();
     }
     let now;
-    let side;
     if ("${now}" == "main") {
         now = "지원자 목록";
-        side = ""
+        document.getElementById("main").style.display = "none";
     } else if ("${now}" == "pass") {
         now = "합격자 목록";
+        document.getElementById("pass").style.display = "none";
     } else if ("${now}" == "fail") {
         now = "불합격자 목록";
+        document.getElementById("fail").style.display = "none";
     }
     document.getElementById("now").innerHTML = now;
 

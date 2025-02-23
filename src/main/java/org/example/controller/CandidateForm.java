@@ -18,6 +18,15 @@ public class CandidateForm {
     private String applicationType;
     private String faculty;
     private String department;
+    private Integer studentNumber;
+
+    public Integer getStudentNumber() {
+        return studentNumber;
+    }
+
+    public void setStudentNumber(Integer studentNumber) {
+        this.studentNumber = studentNumber;
+    }
 
     public String getName() {
         return name;

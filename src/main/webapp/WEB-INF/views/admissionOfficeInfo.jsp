@@ -46,17 +46,33 @@
                     <tr><th>학부</th><td>${candidate.faculty}</td></tr>
                     <tr><th>학과</th><td>${candidate.department}</td></tr>
                 </table>
-                <button class="myBtn" onclick="admit(false)">불합격 처리</button>
-                <button class="myBtn" onclick="admit(true)">합격 처리</button>
+                <button class="myBtn" id="fail" onclick="admit(false)">불합격 처리</button>
+                <button class="myBtn" id="true" onclick="admit(true)">합격 처리</button>
+                <button class="myBtn" id="payment" onclick="payment()">등록금 납부</button>
             </div>
         </form>
     </div>
 </div>
 </body>
 <script>
+    document.getElementById("payment").style.display = "none";
+    if ("${now}" != "main") {
+        document.getElementById("fail").style.display = "none";
+        document.getElementById("true").style.display = "none";
+        document.getElementById("payment").style.display = "";
+    }
     function admit(admit) {
-        document.getElementById("isAdmitted").value = admit;
-        document.getElementById("myForm").submit();
+        if ("${now}" == "main") {
+            document.getElementById("isAdmitted").value = admit;
+            document.getElementById("myForm").submit();
+        }
+    }
+    function payment() {
+        if ("${now}" == "pass") {
+            alert("test");
+            document.getElementById("myForm").action = "/admission/main/payment";
+            document.getElementById("myForm").submit();
+        }
     }
 
 </script>

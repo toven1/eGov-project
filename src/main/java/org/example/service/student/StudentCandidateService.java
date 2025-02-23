@@ -39,7 +39,7 @@ public interface StudentCandidateService {
     List<StudentCandidate> findAllStudentCandidates();
     // 지원자 한명 조회 ( 수험번호로 조회 )
     Optional<StudentCandidate> findOneStudentCandidate(Integer applicationNumber);
-
+    Optional<StudentCandidate> findStudentCandidateByStudentNumber(Integer studentNumber);
     // 이름으로 찾기
     List<StudentCandidate> findStudentCandidatesByName(String name);// 이름으로 찾기
     // 전화번호로 찾기

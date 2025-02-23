@@ -261,6 +261,11 @@ public class StudentCandidateServiceImpl implements StudentCandidateService {
         return studentCandidateRepository.findByApplicationNumber(applicationNumber);
     }
 
+    @Override
+    public Optional<StudentCandidate> findStudentCandidateByStudentNumber(Integer studentNumber) {
+        return studentCandidateRepository.findByStudentNumber(studentNumber);
+    }
+
 
     @Override
     public List<StudentCandidate> findStudentCandidatesByName(String name) {

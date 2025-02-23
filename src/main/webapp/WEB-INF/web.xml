@@ -666,7 +666,11 @@
     <!-- created sessions by modifying the value below.                       -->
 
     <session-config>
-        <session-timeout>30</session-timeout>
+        <session-timeout>10</session-timeout>
+        <cookie-config>
+            <http-only>true</http-only>  <!-- JavaScript 접근 차단 -->
+            <secure>true</secure>  <!-- HTTPS 환경에서만 전송 -->
+        </cookie-config>
     </session-config>
 
 
