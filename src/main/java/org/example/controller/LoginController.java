@@ -48,18 +48,18 @@ public class LoginController {
         if(student==null){
             model.addAttribute("loginErrorMessage","존재하지 않는 정보입니다.");
             logger.info("WrongStudentNumber Insert Sentence: {}", studentNumber); //로그 생성
-            return "studentLogin";
+            return "studentLogin.jsp";
         }
 
         if(isAuthenticated){
             session.setAttribute("number",student); //세션에 로그인한 사용자 정보를 저장
             model.addAttribute("stNumber",studentNumber);
 
-            return "redirect:/main";
+            return "main.jsp";
         }else{
             //로그인 정보가 일치 않다는걸 이벤트 메세지로 띄움
             model.addAttribute("loginErrorMessage","회원정보가 일치하지 않습니다.");
-            return "studentLogin";
+            return "studentLogin.jsp";
         }
 
     }
