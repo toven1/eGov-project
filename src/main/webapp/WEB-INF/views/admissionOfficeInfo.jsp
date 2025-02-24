@@ -59,7 +59,9 @@
     if ("${now}" != "main") {
         document.getElementById("fail").style.display = "none";
         document.getElementById("true").style.display = "none";
-        document.getElementById("payment").style.display = "";
+        if ("${now}" == "pass") {
+            document.getElementById("payment").style.display = "";
+        }
     }
     function admit(admit) {
         if ("${now}" == "main") {
@@ -69,7 +71,6 @@
     }
     function payment() {
         if ("${now}" == "pass") {
-            alert("test");
             document.getElementById("myForm").action = "/admission/main/payment";
             document.getElementById("myForm").submit();
         }

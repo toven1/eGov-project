@@ -60,8 +60,15 @@
                     <table class="table">
                         <tr><th>이름</th><th>연락처</th><th>주소</th><th>수험번호</th><th>지원유형</th><th>학부</th><th>학과</th></tr>
                         <c:forEach var="candidate" items="${candidates}">
-                            <tr onclick="goInfo('${candidate.applicationNumber}')"><td>${candidate.name}</td><td>${candidate.phone}</td><td>${candidate.address}</td><td>${candidate.applicationNumber}</td>
-                                <td>${candidate.applicationType}</td><td>${candidate.faculty}</td><td>${candidate.department}</td></tr>
+                            <tr onclick="goInfo('${candidate.applicationNumber}')">
+                                <td>${candidate.name}</td>
+                                <td>${candidate.phone}</td>
+                                <td>${candidate.address}</td>
+                                <td>${candidate.applicationNumber}</td>
+                                <td>${candidate.applicationType}</td>
+                                <td>${candidate.faculty}</td>
+                                <td>${candidate.department}</td>
+                            </tr>
                         </c:forEach>
                     </table>
                 </div>
