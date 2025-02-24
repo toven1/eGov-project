@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import org.example.entity.student.StudentCandidate;
+import org.example.entity.student.StudentNotAdmitted;
 import org.example.entity.student.TuitionPayment;
 import org.example.repository.student.TuitionPaymentRepository;
 import org.example.service.student.StudentCandidateService;
@@ -9,9 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @Controller
@@ -33,6 +32,8 @@ public class CandidateController {
     public String admissionOffice() {
         return "admissionOffice.jsp";
     }
+
+
     @GetMapping("/admission/main")
     public String admissionMain(Model model){
         List<StudentCandidate> candidates = studentCandidateService.findNullAdmittedStudentCandidates();
@@ -100,10 +101,21 @@ public class CandidateController {
 
     @PostMapping("/admission/main/info")
     public String candidateInfo(@RequestParam("now") String now, @RequestParam("applicationNumber") Integer applicationNumber, Model model) {
-        StudentCandidate candidate = studentCandidateService.findOneStudentCandidate(applicationNumber)
-                .orElseThrow(() -> new IllegalStateException("지원자를 찾을 수 없습니다."));
         model.addAttribute("now", now);
-        model.addAttribute("candidate", candidate);
+
+        if (now.equals("fail")) {
+            studentCandidateService.findNotAdmittedOne(applicationNumber).ifPresent(m->{
+                List<StudentNotAdmitted> notAdmitted = Collections.singletonList(m);
+                List<StudentCandidate> studentCandidates = studentCandidateService.transferNotAdmittedToCandidate(notAdmitted);
+                StudentCandidate candidate = studentCandidates.get(0);
+                model.addAttribute("candidate", candidate);
+            });
+
+        } else {
+            StudentCandidate candidate = studentCandidateService.findOneStudentCandidate(applicationNumber)
+                    .orElseThrow(() -> new IllegalStateException("지원자를 찾을 수 없습니다."));
+            model.addAttribute("candidate", candidate);
+        }
         return "admissionOfficeInfo.jsp";
     }
 

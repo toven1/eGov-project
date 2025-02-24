@@ -305,8 +305,8 @@ public class StudentCandidateServiceImpl implements StudentCandidateService {
     }
 
     @Override
-    public List<StudentCandidate> findNotAdmittedStudentCandidates() {
-        return studentCandidateRepository.findByIsAdmitted(false);
+    public Optional<StudentNotAdmitted> findNotAdmittedOne(Integer applicationNumber) {
+        return studentNotAdmittedRepository.findByApplicationNumber(applicationNumber);
     }
 
     @Override

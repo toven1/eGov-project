@@ -53,7 +53,7 @@ public interface StudentCandidateService {
     // 합격한 지원자 조회
     List<StudentCandidate> findAdmittedStudentCandidates();
     // 불합격
-    List<StudentCandidate> findNotAdmittedStudentCandidates();
+    Optional<StudentNotAdmitted> findNotAdmittedOne(Integer applicationNumber);
     // 아직 X
     List<StudentCandidate> findNullAdmittedStudentCandidates();
 
