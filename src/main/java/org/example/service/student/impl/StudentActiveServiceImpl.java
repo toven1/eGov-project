@@ -48,13 +48,13 @@ public class StudentActiveServiceImpl implements StudentActiveService {
             //일치하면 메인으로 이동하고, 세션을 생성하고, 로그을 남긴다.
             HttpSession session = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getSession();
             session.setAttribute("studentNumber", student); //세션에 로그인한 사용자의 정보 저장
-            session.setAttribute("isLoggedIn", true);//로그인 상태를 저장
+           //session.setAttribute("isLoggedIn", true);//로그인 상태를 저장
             logger.info("Studentname: {} Login Successful",number); //로그 생성
             return true;
         } else {
             //일치하지 않으면 "회원정보가 일치 하지 않습니다."라고 띄우고 다시 로그인 화면으로 돌아간다
             HttpSession session = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getSession();
-            session.setAttribute("isFalsedLogIn", false); //로그인이 실패한 것도 남긴다.
+           // session.setAttribute("isFalsedLogIn", false); //로그인이 실패한 것도 남긴다.
             //로그인 정보가 일치 않다는걸 이벤트 메세지로 띄움
             logger.info("Studentname: {} Login Failed", number); //실패 로그도 생성
             return false;

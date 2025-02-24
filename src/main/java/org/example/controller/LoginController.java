@@ -6,6 +6,7 @@ import org.example.entity.student.StudentActive;
 import org.example.service.student.StudentActiveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,7 +62,7 @@ public class LoginController {
             return "studentLogin.jsp";
         }
 
-        //학번이 비어있을 경우
+        //비밀번호가 비어있을 경우
         if(password==null){
             model.addAttribute("loginErrorMessage","비밀번호를 입력해주세요");
             return "studentLogin.jsp";
@@ -71,13 +72,13 @@ public class LoginController {
         if(isAuthenticated){
             session.setAttribute("number",student); //세션에 로그인한 사용자 정보를 저장
             model.addAttribute("stNumber",studentNumber);
-            return "main.jsp";
+            return "redirect:/main";
         }else{
             //로그인 정보가 일치 않다는걸 이벤트 메세지로 띄움
-            model.addAttribute("loginErrorMessage","비밀번호 틀림");
+            model.addAttribute("loginErrorMessage","학번 또는 비밀번호가 잘못되었습니다.학번와 비밀번호를 정확히 입력해주세요.");
             return "studentLogin.jsp";
         }
 
-       // 학번 또는 비밀번호가 잘못되었습니다.학번와 비밀번호를 정확히 입력해주세요.
     }
+
 }
