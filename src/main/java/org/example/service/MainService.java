@@ -19,6 +19,7 @@ public class MainService {
 
     public StudentActive getStudentInfo(int studentNumber) {
        //여기서 연결해주는 과정이 있어야 한다.
+        return studentRepository.findByStudentNumber(studentNumber).orElse(null);
 
     }
 }

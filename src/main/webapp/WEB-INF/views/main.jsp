@@ -40,12 +40,12 @@
       <h1>학생 정보</h1>
       <table class="student-table">
         <tr><th>이름</th><td>${student.name}</td></tr>
-        <tr><th>학번</th><td>${student.student_number}</td></tr>
-        <tr><th>학년</th><td>${student.academic_year}</td></tr>
+        <tr><th>학번</th><td>${student.studentNumber}</td></tr>
+        <tr><th>학년</th><td>${student.academicYear}</td></tr>
         <tr><th>학기</th><td>${student.semester}</td></tr>
         <tr><th>학부</th><td>${student.faculty}</td></tr>
         <tr><th>학과</th><td>${student.department}</td></tr>
-        <tr><th>소속 클래스</th><td>${student.class_group}</td></tr>
+        <tr><th>소속 클래스</th><td>${student.classGroup}</td></tr>
       </table>
     </div>
     <c:if test="${not empty StudentSearchError}">

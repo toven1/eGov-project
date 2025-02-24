@@ -44,7 +44,7 @@ public class MainController {
             return "main.jsp";  // main.jsp 페이지로 이동
         } catch (Exception e) {
             model.addAttribute("error", "서버에서 문제가 발생했습니다: " + e.getMessage());
-            return "errorPage";  // 에러 페이지로 이동
+            return "redirect:/studentLogin";  // 에러 페이지로 이동
         }
     }
 }

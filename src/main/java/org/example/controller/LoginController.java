@@ -70,7 +70,7 @@ public class LoginController {
 
 
         if(isAuthenticated){
-            session.setAttribute("number",student); //세션에 로그인한 사용자 정보를 저장
+            session.setAttribute("number",student.getStudentNumber()); //세션에 로그인한 사용자 정보를 저장
             model.addAttribute("stNumber",studentNumber);
             return "redirect:/main";
         }else{
