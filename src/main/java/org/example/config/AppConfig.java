@@ -62,12 +62,12 @@ public class AppConfig {
     }
 
     //ViewResolver 추가
-    @Bean
-    public InternalResourceViewResolver viewResolver() {
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setPrefix("/WEB-INF/views/");
-        viewResolver.setSuffix(".jsp");
-        return viewResolver;
-    }
+//    @Bean
+//    public InternalResourceViewResolver viewResolver() {
+//        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+//        viewResolver.setPrefix("/WEB-INF/views/");
+//        viewResolver.setSuffix(".jsp");
+//        return viewResolver;
+//    }
 
 }

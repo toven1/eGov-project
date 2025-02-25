@@ -170,13 +170,13 @@ public class StudentCandidateServiceImpl implements StudentCandidateService {
         String departmentCode = studentCandidate.getDepartmentCode();
 
         // 기존 시퀀스 조회
-        StudentNumberSequence studentNumberSequence = studentNumberSequenceRepository.findByYearAndDepartmentCode(year, departmentCode);
+        StudentNumberSequence studentNumberSequence =
+                studentNumberSequenceRepository.findByYearAndDepartmentCode(year, departmentCode);
         if (studentNumberSequence == null) {
             // 없으면 0으로 지정
             studentNumberSequence = new StudentNumberSequence();
             studentNumberSequence.setYear(year);
             studentNumberSequence.setDepartmentCode(departmentCode);
-
             studentNumberSequence.setSequence(0);
         }
         // 1을 더한 후 시퀀스 저장
@@ -184,7 +184,8 @@ public class StudentCandidateServiceImpl implements StudentCandidateService {
         studentNumberSequenceRepository.save(studentNumberSequence);
 
         // 만든 시퀀스를 기반으로 학번 생성
-        Integer studentNumber = Integer.parseInt(String.format("%02d%s%04d", year % 100, departmentCode, studentNumberSequence.getSequence()));
+        Integer studentNumber = Integer.parseInt(String.format("%02d%s%04d",
+                year % 100, departmentCode, studentNumberSequence.getSequence()));
         studentCandidate.setStudentNumber(studentNumber);
 
         // 학번 리턴

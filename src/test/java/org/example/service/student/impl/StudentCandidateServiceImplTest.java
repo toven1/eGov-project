@@ -514,7 +514,7 @@ public class StudentCandidateServiceImplTest {
     }
 
     @Test
-    public void 종합_테스트(){
+    public void 주민번호_종합_테스트(){
         StudentCandidate sc1 = new StudentCandidate();
         StudentCandidate sc2 = new StudentCandidate();
 
